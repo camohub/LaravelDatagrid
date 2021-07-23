@@ -35,6 +35,9 @@ class Datagrid
 	/** @var  integer  $onEachSide */
 	public $onEachSide;
 
+	/** @var  array  $columns */
+	protected $columns;
+
 
 
 	public function __construct(
@@ -44,6 +47,8 @@ class Datagrid
 		$this->request = $request;
 		$this->model = $model;
 		$this->sess_name = self::class . $this->slug;
+
+		return $this;
 	}
 
 
@@ -51,6 +56,8 @@ class Datagrid
 	{
 		$this->name = $name;
 		$this->slug = Str::slug($name);
+
+		return $this;
 	}
 
 
@@ -59,6 +66,18 @@ class Datagrid
 		$this->defaultPerPage = $defaultPerPage;
 		$this->perPage = $perPage;
 		$this->onEachSide = $onEachSide;
+
+		return $this;
+	}
+
+
+
+
+	public function addColumn($fieldName, $type = 'text', $title = '')
+	{
+		$this->columns[] = $column = new Column($fieldName, $type, $title);
+
+		return $column;
 	}
 
 
@@ -78,6 +97,8 @@ class Datagrid
 
 		return view('camohubPaginator::base', [
 			'model' => $model,
+			'columns' => $this->columns,
+			'grid' => $this,
 		]);
 	}
 
