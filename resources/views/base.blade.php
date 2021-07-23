@@ -17,27 +17,34 @@
 					@if( !$column->hidden )
 
 						@php
-							// fieldName comes from explode() of path as user.role.name.
-							// Every iteration adds new object level.
-							foreach ($column->fieldName as $path)
+							if( $column->type != \Camohub\LaravelDatagrid\Datagrid::TYPE_CUSTOM )
 							{
-								$fieldValue = !isset($fieldValue) ? $item->{$path} : $fieldValue->{$path};
+								// fieldName comes from explode() of path as user.role.name.
+								// Every iteration adds new object level.
+								foreach ($column->fieldName as $path)
+								{
+									$fieldValue = !isset($fieldValue) ? $item->{$path} : $fieldValue->{$path};
+								}
+
+								// Has to be here to have access to raw value.
+								$outherClass = $column->outherClass ? ($column->outherClass)($fieldValue, $item) : '';
+
+								if( $f = $column->numberFormat )
+								{
+									$fieldValue = number_format($column, $f[0], $f[1], $f[2]);
+								}
 							}
-
-							// Has to be here to have access to raw value.
-							$outherClass = $column->outherClass ? ($column->outherClass)($fieldValue) : '';
-
-							if( $f = $column->numberFormat )
+							else
 							{
-								$fieldValue = number_format($column, $f[0], $f[1], $f[2]);
+								$fieldValue = '';
 							}
 						@endphp
 
 						<td class="{{ $outherClass }}">
 
 							@if($column->render)
-								@if($column->noEscape){!! ($column->render)($fieldValue) !!}
-								@else {{ ($column->render)($fieldValue) }}
+								@if($column->noEscape){!! ($column->render)($fieldValue, $item) !!}
+								@else {{ ($column->render)($fieldValue, $item) }}
 								@endif
 							@else
 								@if($column->noEscape){!! $fieldValue !!}
@@ -59,7 +66,7 @@
 		</tfoot>
 	</table>
 
-	<div class="mt-3">
+	<div class="mt-2">
 		{{ $model->links() }}
 	</div>
 </div>

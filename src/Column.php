@@ -13,6 +13,13 @@ use Illuminate\Support\Str;
 class Column
 {
 
+	const TYPE_TEXT = 'text';
+
+	const TYPE_DATE = 'date';
+
+	const TYPE_CUSTOM = 'custom';
+
+
 	/** @var string $fieldName */
 	public $fieldName = NULL;
 
@@ -51,7 +58,7 @@ class Column
 	public function __construct(
 		$fieldName,  // accepts article.user.roles. Other structures need custom render callback.
 		$title = '',
-		$type = 'text'
+		$type = self::TYPE_TEXT
 	) {
 		$this->fieldName = explode('.', $fieldName);
 		$this->title = $title ?: ucfirst($fieldName);
