@@ -13,38 +13,44 @@ use Illuminate\Support\Str;
 class Column
 {
 
-	/** @var  string  $fieldName */
+	/** @var string $fieldName */
 	public $fieldName = NULL;
 
-	/** @var  string  $type */
+	/** @var string $type */
 	public $type = NULL;
 
-	/** @var  string  $title */
+	/** @var string $title */
 	public $title = NULL;
 
-	/** @var  callable  $render */
+	/** @var callable $render */
 	public $render = NULL;
 
-	/** @var  callable|string  $sort */
+	/** @var callable|string $sort */
 	public $sort = NULL;
 
-	/** @var  callable  $filter */
+	/** @var callable $filter */
 	public $filter = NULL;
 
-	/** @var  callable  $numberFormat */
+	/** @var callable $numberFormat */
 	public $numberFormat = NULL;
 
-	/** @var  boolean  $hidden */
+	/** @var boolean $hidden */
 	public $hidden = NULL;
+
+	/** @var boolean $noEscape */
+	public $noEscape = NULL;
+
+	/** @var \stdClass $link */
+	public $link = NULL;
 
 
 
 	public function __construct(
-		$fieldName,
+		$fieldName,  // accepts article.user.roles. Other structures need custom render callback.
 		$type = 'text',
 		$title = ''
 	) {
-		$this->fieldName = $fieldName;
+		$this->fieldName = explode('.', $fieldName);
 		$this->type = $type;
 		$this->title = $title ?: $fieldName;
 
@@ -98,6 +104,15 @@ class Column
 	public function setHidden()
 	{
 		$this->hidden = TRUE;
+	}
+
+
+	public function setLink($routeName, $routeParams)
+	{
+		$this->link = (object)[
+			'routeName' => $routeName,
+			'routePrams' => $routeParams,
+		];
 	}
 
 }

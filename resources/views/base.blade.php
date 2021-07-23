@@ -17,16 +17,24 @@
 						@if( !$column->hidden )
 							<td>
 								@php
-									$value = $item->{$column->fieldName};
+									// fieldName comes from explode() of path as user.role.name.
+									// Every iteration adds new object level.
+									foreach ($column->fieldName as $path) $value = $item->{$path};
+
 									if( $f = $column->numberFormat )
 									{
 										$value = number_format($column, $f[0], $f[1], $f[2]);
 									}
 								@endphp
+
 								@if($column->render)
-									{{ $column->render($value) }}
+									@if($column->noEscape){!! $column->render($value) !!}
+									@else {{ $column->render($value) }}
+									@endif
 								@else
-									{{ $value }}
+									@if($column->noEscape){!! $value !!}
+									@else {{ $value }}
+									@endif
 								@endif
 							</td>
 						@endif
