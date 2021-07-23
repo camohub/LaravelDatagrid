@@ -90,9 +90,9 @@ class Datagrid
 
 
 
-	public function addColumn($fieldName, $type = 'text', $title = '')
+	public function addColumn($fieldName, $title = '', $type = Column::TYPE_TEXT)
 	{
-		$this->columns[] = $column = new Column($fieldName, $type, $title);
+		$this->columns[] = $column = new Column($fieldName, $title, $type);
 
 		return $column;
 	}

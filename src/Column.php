@@ -108,18 +108,24 @@ class Column
 	public function setNumberFormat(int $decimals, string $point = '.', string $thousants = ' ')
 	{
 		$this->numberFormat = [$decimals, $point, $thousants];
+
+		return $this;
 	}
 
 
 	public function setHidden()
 	{
 		$this->hidden = TRUE;
+
+		return $this;
 	}
 
 
 	public function setNoEscape()
 	{
 		$this->noEscape = TRUE;
+
+		return $this;
 	}
 
 
@@ -129,6 +135,8 @@ class Column
 			'routeName' => $routeName,
 			'routePrams' => $routeParams,
 		];
+
+		return $this;
 	}
 
 
@@ -144,6 +152,8 @@ class Column
 			};
 		}
 		$this->outherClass = $callback;
+
+		return $this;
 	}
 
 }

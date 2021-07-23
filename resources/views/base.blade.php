@@ -17,7 +17,7 @@
 					@if( !$column->hidden )
 
 						@php
-							if( $column->type != \Camohub\LaravelDatagrid\Datagrid::TYPE_CUSTOM )
+							if( $column->type != \Camohub\LaravelDatagrid\Column::TYPE_CUSTOM )
 							{
 								// fieldName comes from explode() of path as user.role.name.
 								// Every iteration adds new object level.
