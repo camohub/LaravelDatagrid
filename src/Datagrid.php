@@ -35,6 +35,10 @@ class Datagrid
 	/** @var  integer  $onEachSide */
 	public $onEachSide;
 
+
+	/** @var   */
+	public $tableClass = 'table table-striped table-hover table-bordered';
+
 	/** @var  array  $columns */
 	protected $columns;
 
@@ -71,6 +75,19 @@ class Datagrid
 	}
 
 
+	public function setTableClass(string $class)
+	{
+		$this->tableClass = $class;
+	}
+
+
+
+
+
+
+
+
+
 
 
 	public function addColumn($fieldName, $type = 'text', $title = '')
@@ -79,10 +96,6 @@ class Datagrid
 
 		return $column;
 	}
-
-
-
-
 
 
 
