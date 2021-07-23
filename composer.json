@@ -1,0 +1,28 @@
+{
+    "name": "camohub/laravel-datagrid",
+    "description": "Datagrid for Laravel",
+    "type": "library",
+    "license": "mit",
+    "authors": [
+        {
+            "name": "Čamaj Vladimír",
+            "email": "vladimir.camaj@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Camohub\\LaravelDatagrid\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Camohub\\LaravelDatagrid\\DatagridServiceProvider"
+            ]
+        }
+    }
+}

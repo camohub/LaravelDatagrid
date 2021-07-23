@@ -1,0 +1,15 @@
+<?php
+
+namespace Camohub\LaravelDatagrid\Exceptions;
+
+
+class ColumnRenderCallbackException extends \Exception
+{
+
+}
+
+
+class NewException extends \Exception
+{
+
+}
