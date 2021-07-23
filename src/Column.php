@@ -43,6 +43,9 @@ class Column
 	/** @var \stdClass $link */
 	public $link = NULL;
 
+	/** @var callable $outherClass */
+	public $outherClass = NULL;
+
 
 
 	public function __construct(
@@ -95,7 +98,7 @@ class Column
 	/**
 	 * Nemeric values only
 	 */
-	public function setNumberFormat($decimals, $point = '.', $thousants = ' ')
+	public function setNumberFormat(int $decimals, string $point = '.', string $thousants = ' ')
 	{
 		$this->numberFormat = [$decimals, $point, $thousants];
 	}
@@ -107,12 +110,33 @@ class Column
 	}
 
 
-	public function setLink($routeName, $routeParams)
+	public function setNoEscape()
+	{
+		$this->noEscape = TRUE;
+	}
+
+
+	public function setLink(string $routeName, string $routeParams)
 	{
 		$this->link = (object)[
 			'routeName' => $routeName,
 			'routePrams' => $routeParams,
 		];
+	}
+
+
+	/**
+	 * Callback to add e.g. conditional class to the parent td element.
+	 */
+	public function setOutherClass($callback)
+	{
+		if( is_string($callback) )
+		{
+			$this->outherClass = function() use ($callback) {
+				return $callback;
+			};
+		}
+		$this->outherClass = $callback;
 	}
 
 }

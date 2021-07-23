@@ -95,7 +95,7 @@ class Datagrid
 			->withQueryString();
 
 
-		return view('camohubPaginator::base', [
+		return view('camohubLaravelDatagrid::base', [
 			'model' => $model,
 			'columns' => $this->columns,
 			'grid' => $this,
