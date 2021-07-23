@@ -50,12 +50,12 @@ class Column
 
 	public function __construct(
 		$fieldName,  // accepts article.user.roles. Other structures need custom render callback.
-		$type = 'text',
-		$title = ''
+		$title = '',
+		$type = 'text'
 	) {
 		$this->fieldName = explode('.', $fieldName);
+		$this->title = $title ?: ucfirst($fieldName);
 		$this->type = $type;
-		$this->title = $title ?: $fieldName;
 
 		return $this;
 	}
