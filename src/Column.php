@@ -23,6 +23,9 @@ class Column
 	/** @var string $fieldName */
 	public $fieldName = NULL;
 
+	/** @var string $filterName */
+	public $filterName = NULL;
+
 	/** @var string $type */
 	public $type = NULL;
 
@@ -62,6 +65,7 @@ class Column
 	) {
 		$this->fieldName = explode('.', $fieldName);
 		$this->title = $title ?: ucfirst($fieldName);
+		$this->filterName = Str::slug($fieldName);
 		$this->type = $type;
 
 		return $this;

@@ -11,6 +11,9 @@ use Illuminate\Support\Str;
 
 class Datagrid
 {
+	/** @var  Request $request_name */
+	public $request;
+
 	/** @var  string $sess_name */
 	public $sess_name;
 
@@ -19,9 +22,6 @@ class Datagrid
 
 	/** @var  string  $slug */
 	public $slug;
-
-	/** @var  Request $request */
-	public $request;
 
 	/** @var  Collection  $model */
 	public $model;
@@ -35,7 +35,6 @@ class Datagrid
 	/** @var  integer  $onEachSide */
 	public $onEachSide;
 
-
 	/** @var   */
 	public $tableClass = 'table table-striped table-hover table-bordered';
 
@@ -46,7 +45,7 @@ class Datagrid
 
 	public function __construct(
 		Request $request,
-		$model = NULL
+		$model
 	) {
 		$this->request = $request;
 		$this->model = $model;
@@ -98,11 +97,19 @@ class Datagrid
 	}
 
 
+	public function getColumns()
+	{
+		return $this->columns;
+	}
+
+
 
 
 
 	public function render()
 	{
+		$filter = new Filter($this->request, $this->model);
+		$model = $filter->getResult();
 		$model = $this->model->paginate($this->defaultPerPage)
 			->onEachSide($this->onEachSide)
 			->withQueryString();
@@ -112,6 +119,7 @@ class Datagrid
 			'model' => $model,
 			'columns' => $this->columns,
 			'grid' => $this,
+			'request' => $this->request,
 		]);
 	}
 
