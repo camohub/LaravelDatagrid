@@ -20,11 +20,20 @@ class Column
 	const TYPE_CUSTOM = 'custom';
 
 
+	/** @var Request|null $request */
+	public $request = NULL;
+
 	/** @var string $fieldName */
 	public $fieldName = NULL;
 
-	/** @var string $filterName */
-	public $filterName = NULL;
+	/** @var string $fieldNameExplode */
+	public $fieldNameExplode = NULL;
+
+	/** @var string $filterParamName */
+	public $filterParamName = NULL;
+
+	/** @var string $sortParamName */
+	public $sortParamName = NULL;
 
 	/** @var string $type */
 	public $type = NULL;
@@ -37,6 +46,9 @@ class Column
 
 	/** @var callable|string $sort */
 	public $sort = NULL;
+
+	/** @var string|NULL $sort */
+	public $sortValue = NULL;
 
 	/** @var callable $filter */
 	public $filter = NULL;
@@ -57,16 +69,21 @@ class Column
 	public $outherClass = NULL;
 
 
-
 	public function __construct(
+		Request $request,
 		$fieldName,  // accepts article.user.roles. Other structures need custom render callback.
 		$title = '',
 		$type = self::TYPE_TEXT
 	) {
-		$this->fieldName = explode('.', $fieldName);
+		$this->request = $request;
+		$this->fieldName = $fieldName;
+		$this->fieldNameExplode = explode('.', $fieldName);
 		$this->title = $title ?: ucfirst($fieldName);
-		$this->filterName = Str::slug($fieldName);
 		$this->type = $type;
+		$this->filterParamName = 'chgrid-filter-' . Str::slug($fieldName);
+		$this->sortParamName = 'chgrid-sort-' . Str::slug($fieldName);
+		$this->filterValue = $request->input($this->filterParamName, NULL);
+		$this->sortValue = $request->input($this->sortParamName, NULL);
 
 		return $this;
 	}
@@ -158,6 +175,25 @@ class Column
 		$this->outherClass = $callback;
 
 		return $this;
+	}
+
+
+	public function getSortUrl()
+	{
+		$currentValue = strtolower($this->sortValue);
+
+		if( !$currentValue )
+		{
+			return $this->request->fullUrlWithQuery([$this->sortParamName => 'asc']);
+		}
+		elseif ( $currentValue == 'asc' )
+		{
+			return $this->request->fullUrlWithQuery([$this->sortParamName => 'desc']);
+		}
+		else
+		{
+			return $this->request->fullUrl();
+		}
 	}
 
 }

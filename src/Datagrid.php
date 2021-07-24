@@ -44,10 +44,9 @@ class Datagrid
 
 
 	public function __construct(
-		Request $request,
 		Builder $model
 	) {
-		$this->request = $request;
+		$this->request = request();
 		$this->model = $model;
 		$this->sess_name = self::class . $this->slug;
 

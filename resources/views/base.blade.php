@@ -1,15 +1,28 @@
 
-<div class="table-responsive">
+<div class="table-responsive camohub-laravel-datagrid">
 	<table class="{{ $grid->tableClass }}">
+
 		<thead>
 		@foreach($columns as $column)
 			@if(!$column->hidden)
-				<th>
-					{{$column->title}}
+				@php
+					$thClass = $column->sortValue ? 'sorting' : '';
+				@endphp
+				<th class="{{$thClass}}">
+					@if( $column->sort )
+						<a href="">{{$column->getSortUrl}}</a>
+					@else
+						{{$column->title}}
+					@endif
 				</th>
 			@endif
+
+			@php 
+				unset($thClass)
+			@endphp
 		@endforeach
 		</thead>
+
 		<tbody>
 		@foreach($model as $item)
 			<tr>
@@ -19,9 +32,9 @@
 						@php
 							if( $column->type != \Camohub\LaravelDatagrid\Column::TYPE_CUSTOM )
 							{
-								// fieldName comes from explode() of path as user.role.name.
+								// fieldExplodeName comes from explode() of path as user.role.name.
 								// Every iteration adds new object level.
-								foreach ($column->fieldName as $path)
+								foreach ($column->fieldNameExplode as $path)
 								{
 									$fieldValue = !isset($fieldValue) ? $item->{$path} : $fieldValue->{$path};
 								}

@@ -39,20 +39,22 @@ class Filter
 
 		foreach ($colmns as $col)
 		{
-			if( $col->filter && $colFilter = $this->request->input('chgrid-filter-' . $col->filterName, NULL) )
+			// Filter
+			if( $col->filter && $colFilter = $col->filterValue )
 			{
 				($col->filter)($this->model, $colFilter);
 			}
 
-			if( $col->sort && $sort = $this->request->input('chgrid-sort-' . $col->filterName, NULL) )
+			// Sort
+			if( $col->sort && $col->sortValue )
 			{
-				if( is_bool($col->sort) )
+				if( is_callable($col->sort) )
 				{
-					($col->sort)($this->model, $sort);
+					($col->sort)($this->model, $col->sortValue);
 				}
-				else
+				else if( is_string($col->sortValue) )
 				{
-					$this->model->orderBy($col->filterName, $sort);
+					$this->model->orderBy($col->fieldName, $col->sortValue);
 				}
 			}
 		}
