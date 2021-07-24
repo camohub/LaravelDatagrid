@@ -181,6 +181,7 @@ class Column
 	public function getSortUrl()
 	{
 		$currentValue = strtolower($this->sortValue);
+		$currentUrl = $this->request->fullUrl();
 
 		if( !$currentValue )
 		{
@@ -188,11 +189,18 @@ class Column
 		}
 		elseif ( $currentValue == 'asc' )
 		{
-			return $this->request->fullUrlWithQuery([$this->sortParamName => 'desc']);
+			$newUrl = $this->request->fullUrlWithQuery([$this->sortParamName => 'desc']);
+			$search = $this->sortParamName . '=' . $currentValue;
+			$newUrl = str_replace([$search . '&', $search], '', $newUrl);
+			$newUrl = trim($newUrl, '?/');
+			return $newUrl;
 		}
-		else
+		elseif ( $currentValue == 'desc' )
 		{
-			return $this->request->fullUrl();
+			$search = $this->sortParamName . '=' . $currentValue;
+			$newUrl = str_replace([$search . '&', $search], '', $currentUrl);
+			$newUrl = trim($newUrl, '?/');
+			return $newUrl;
 		}
 	}
 

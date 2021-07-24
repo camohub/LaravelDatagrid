@@ -10,14 +10,14 @@
 				@endphp
 				<th class="{{$thClass}}">
 					@if( $column->sort )
-						<a href="">{{$column->getSortUrl}}</a>
+						<a href="">{{$column->getSortUrl()}}</a>
 					@else
 						{{$column->title}}
 					@endif
 				</th>
 			@endif
 
-			@php 
+			@php
 				unset($thClass)
 			@endphp
 		@endforeach
