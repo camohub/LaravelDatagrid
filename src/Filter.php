@@ -3,8 +3,8 @@
 namespace Camohub\LaravelDatagrid;
 
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -18,7 +18,7 @@ class Filter
 	/** @var Datagrid $grid */
 	protected $grid;
 
-	/** @var Collection $model */
+	/** @var Builder $model */
 	protected $model;
 
 

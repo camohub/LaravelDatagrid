@@ -3,8 +3,8 @@
 namespace Camohub\LaravelDatagrid;
 
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -23,7 +23,7 @@ class Datagrid
 	/** @var  string  $slug */
 	public $slug;
 
-	/** @var  Collection  $model */
+	/** @var  Builder  $model */
 	public $model;
 
 	/** @var  integer  $defaultPerPage */
@@ -45,7 +45,7 @@ class Datagrid
 
 	public function __construct(
 		Request $request,
-		$model
+		Builder $model
 	) {
 		$this->request = $request;
 		$this->model = $model;
@@ -108,7 +108,7 @@ class Datagrid
 
 	public function render()
 	{
-		$filter = new Filter($this->request, $this->model);
+		$filter = new Filter($this->request, $this, $this->model);
 		$model = $filter->getResult();
 		$model = $this->model->paginate($this->defaultPerPage)
 			->onEachSide($this->onEachSide)
