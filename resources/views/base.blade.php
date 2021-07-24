@@ -10,7 +10,7 @@
 				@endphp
 				<th class="{{$thClass}}">
 					@if( $column->sort )
-						<a href="">{{$column->getSortUrl()}}</a>
+						<a href="{{$column->getSortUrl()}}">{{$column->title}}</a>
 					@else
 						{{$column->title}}
 					@endif
