@@ -239,8 +239,10 @@
 	{
 		var input = null;
 		@foreach($columns as $col)
-			var input = document.getElementById({{$col->filterParamName}});
-			if( !input.value ) input.setAttribute('disabled', true);
+			@if( !$col->filter && !$col->sort )
+				input = document.getElementById({{$col->filterParamName}});
+				if( !input.value ) input.setAttribute('disabled', true);
+			@endif
 		@endforeach
 
 		form.submit();
