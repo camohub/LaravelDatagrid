@@ -32,7 +32,7 @@
 						<th class="{{$thClass}}">
 							@if( $column->filter )
 								<input name="{{$column->filterParamName}}"
-									value=""
+									value="{{$column->filterValue}}"
 									type="text"
 									class="form-control chgrid-filter">
 							@endif
@@ -118,12 +118,51 @@
 	</table>
 </div>
 
+
+@if($grid->javascript)
 <script>
 	// without jQuery (doesn't work in older IEs)
 	// https://stackoverflow.com/questions/9899372/pure-javascript-equivalent-of-jquerys-ready-how-to-call-a-function-when-t
 	document.addEventListener('DOMContentLoaded', function() {
 
+		var chGridForm = document.getElementById('chgrid-form');
 		var perPageSelect = document.getElementById('chgrid-perPage');
+		var filterInputs = document.querySelectorAll('.chgrid-filter');
+		var filterTimeout = null;
+		var currentUrl = location.href;
+
+
+		filterInputs.forEach( function( input ) {
+
+			input.addEventListener('keyup', function(e) {
+				clearTimeout(filterTimeout);
+
+				filterTimeout = setTimeout(function() {
+					currentUrl = removePageFromUrl(currentUrl);
+					chGridForm.setAttribute('action', currentUrl);
+					chGridForm.submit();
+
+				}, {{$grid->jsFilterTimeout}});
+
+			});
+		});
+
+
+		perPageSelect.addEventListener('change', function(e) {
+			clearTimeout(filterTimeout);
+
+			filterTimeout = setTimeout(function() {
+				currentUrl = removePageFromUrl(currentUrl);
+				chGridForm.setAttribute('action', currentUrl);
+				chGridForm.submit();
+
+			}, {{$grid->jsFilterTimeout}});
+		});
+
+
+
+
+		/*var perPageSelect = document.getElementById('chgrid-perPage');
 		var filterInputs = document.querySelectorAll('.chgrid-filter');
 
 		var href = location.href;
@@ -176,6 +215,7 @@
 
 				location.href = href;
 			});
-		});
+		});*/
 	}, false);
 </script>
+@endif

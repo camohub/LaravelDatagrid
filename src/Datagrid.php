@@ -11,41 +11,47 @@ use Illuminate\Support\Str;
 
 class Datagrid
 {
-	/** @var  Request $request_name */
+	/** @var Request $request_name */
 	public $request;
 
-	/** @var  string $sess_name */
+	/** @var string $sess_name */
 	public $sess_name;
 
-	/** @var  string  $name */
+	/** @var string $name */
 	public $name;
 
-	/** @var  string  $slug */
+	/** @var string $slug */
 	public $slug;
 
-	/** @var  Builder  $model */
+	/** @var Builder $model */
 	public $model;
 
-	/** @var  integer  $defaultPerPage */
+	/** @var integer $defaultPerPage */
 	public $defaultPerPage = 25;
 
-	/** @var  array  $perPage */
+	/** @var array $perPage */
 	public $perPage = [10, 25, 50, 100];
 
-	/** @var  integer  $onEachSide */
+	/** @var integer $onEachSide */
 	public $onEachSide;
 
-	/** @var   */
+	/** @var string $tableClass  */
 	public $tableClass = 'table table-striped table-hover table-bordered';
 
-	/** @var  array  $columns */
+	/** @var array $columns */
 	protected $columns;
 
-	/** @var  integer  $columnsCount */
+	/** @var integer $columnsCount */
 	public $columnsCount;
 
-	/** @var  integer  $columnsFiltersCount */
+	/** @var integer $columnsFiltersCount */
 	public $columnsFiltersCount;
+
+	/** @var boolean $javascript */
+	public $javascript = TRUE;
+
+	/** @var integer $jsFilterTimeout */
+	public $jsFilterTimeout = TRUE;
 
 
 
@@ -85,7 +91,16 @@ class Datagrid
 	}
 
 
+	public function disableJavascript()
+	{
+		$this->javascript = FALSE;
+	}
 
+
+	public function setJSFilterTimeout(int $timeout)
+	{
+		$this->jsFilterTimeout = $timeout;
+	}
 
 
 
