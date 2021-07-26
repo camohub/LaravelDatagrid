@@ -41,9 +41,8 @@ class Datagrid
 	/** @var  array  $columns */
 	protected $columns;
 
-
 	/** @var  integer  $columnsCount */
-	protected $columnsCount;
+	public $columnsCount;
 
 
 
@@ -112,9 +111,11 @@ class Datagrid
 
 	public function render()
 	{
+		$perPage = $this->request->input('perPage', $this->defaultPerPage);
+
 		$filter = new Filter($this->request, $this, $this->model);
 		$model = $filter->getResult();
-		$model = $model->paginate($this->defaultPerPage, ['*'], 'chgrid-page')
+		$model = $model->paginate($perPage, ['*'], 'chgrid-page')
 			->onEachSide($this->onEachSide)
 			->withQueryString();
 

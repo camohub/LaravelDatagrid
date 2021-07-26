@@ -75,17 +75,20 @@
 			</tr>
 		@endforeach
 		</tbody>
+
 		<tfoot>
 			<tr>
 				<td colspan="{{$grid->columnsCount - 2}}">
 					{{ $model->links() }}
 				</td>
-				<td>
+				<td colspan="2">
 					<form action="" method="get">
 						@csrf
 						<select name="{{'chgrid-perPage'}}" class="form-control">
 							@foreach($grid->perPage as $pP)
-								<option value="{{$pP}}" @if($grid->request->input('perPage', $grid->defaultPerPage)) selected @endif>{{$pP}}</option>
+								<option value="{{$pP}}"
+										@if( $request->input('perPage', $grid->defaultPerPage) == $pP ) selected @endif
+								>{{$pP}}</option>
 							@endforeach
 						</select>
 					</form>
