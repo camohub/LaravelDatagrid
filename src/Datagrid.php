@@ -94,7 +94,6 @@ class Datagrid
 	public function addColumn($fieldName, $title = '', $type = Column::TYPE_TEXT)
 	{
 		$this->columns[] = $column = new Column($this->request, $fieldName, $title, $type);
-		$this->columnsCount++;
 
 		return $column;
 	}
