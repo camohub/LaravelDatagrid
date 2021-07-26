@@ -109,7 +109,7 @@ class Datagrid
 	{
 		$filter = new Filter($this->request, $this, $this->model);
 		$model = $filter->getResult();
-		$model = $this->model->paginate($this->defaultPerPage)
+		$model = $this->model->paginate($this->defaultPerPage, ['*'], 'chgrid-page')
 			->onEachSide($this->onEachSide)
 			->withQueryString();
 
