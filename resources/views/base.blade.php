@@ -157,11 +157,13 @@
 				var name = this.getAttribute('name');
 				urlParam = name + '=' + this.value;
 
-				var regexp = new RegExp(name + '=[^&]*');
+				var regexp = new RegExp(name + '=[^&]*');  // including empty value
 
 				if( href.match(regexp) )
 				{
-					href = href.replace(regexp, name + '=' + this.value);
+					href = this.value
+						? href.replace(regexp, name + '=' + this.value)
+						: href.replace(regexp, '');
 				}
 				else
 				{
