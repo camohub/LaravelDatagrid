@@ -37,6 +37,13 @@
 									type="text"
 									class="form-control chgrid-filter">
 							@endif
+
+							@if( $column->sort )
+								<input name="{{$column->sortParamName}}"
+									id="{{$column->sortParamName}}"
+									value="{{$column->sortValue}}"
+									type="hidden">
+							@endif
 						</th>
 					@endif
 
@@ -238,9 +245,14 @@
 	function formSubmit(form)
 	{
 		var input = null;
+
 		@foreach($columns as $col)
-			@if( $col->filter || $col->sort )
-				input = document.getElementById({{$col->filterParamName}});
+			@if( $col->filter )
+				input = document.getElementById('{{$col->filterParamName}}');
+				if( !input.value ) input.setAttribute('disabled', true);
+			@endif
+			@if( $col->sort )
+				input = document.getElementById('{{$col->sortParamName}}');
 				if( !input.value ) input.setAttribute('disabled', true);
 			@endif
 		@endforeach
