@@ -217,5 +217,11 @@
 			});
 		});*/
 	}, false);
+
+
+	function removePageFromUrl(url)
+	{
+		return url.replace(/chgrid-page=\d+/, '');
+	}
 </script>
 @endif
