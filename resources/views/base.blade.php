@@ -32,6 +32,7 @@
 						<th class="{{$thClass}}">
 							@if( $column->filter )
 								<input name="{{$column->filterParamName}}"
+									id="{{$column->filterParamName}}"
 									value="{{$column->filterValue}}"
 									type="text"
 									class="form-control chgrid-filter">
@@ -128,8 +129,10 @@
 		var chGridForm = document.getElementById('chgrid-form');
 		var perPageSelect = document.getElementById('chgrid-perPage');
 		var filterInputs = document.querySelectorAll('.chgrid-filter');
-		var filterTimeout = null;
 		var currentUrl = location.href;
+		var filterTimeout = null;
+
+		chGridForm.setAttribute('action', currentUrl);
 
 
 		filterInputs.forEach( function( input ) {
@@ -140,7 +143,8 @@
 				filterTimeout = setTimeout(function() {
 					currentUrl = removePageFromUrl(currentUrl);
 					chGridForm.setAttribute('action', currentUrl);
-					chGridForm.submit();
+
+					formSubmit(chGridForm);
 
 				}, {{$grid->jsFilterTimeout}});
 
@@ -154,7 +158,8 @@
 			filterTimeout = setTimeout(function() {
 				currentUrl = removePageFromUrl(currentUrl);
 				chGridForm.setAttribute('action', currentUrl);
-				chGridForm.submit();
+
+				formSubmit(chGridForm);
 
 			}, {{$grid->jsFilterTimeout}});
 		});
@@ -222,6 +227,23 @@
 	function removePageFromUrl(url)
 	{
 		return url.replace(/chgrid-page=\d+/, '');
+	}
+
+
+	/**
+	 * This method disables all empty inputs
+	 * so its keys wont be in filter url.
+	 * @param form
+	 */
+	function formSubmit(form)
+	{
+		var input = null;
+		@foreach($columns as $col)
+			var input = document.getElementById({{$col->filterParamName}});
+			if( !input.value ) input.setAttribute('disabled', true);
+		@endforeach
+
+		form.submit();
 	}
 </script>
 @endif
