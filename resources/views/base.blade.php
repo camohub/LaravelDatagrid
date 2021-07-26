@@ -3,24 +3,47 @@
 	<table class="{{ $grid->tableClass }}">
 
 		<thead>
-		@foreach($columns as $column)
-			@if(!$column->hidden)
-				@php
-					$thClass = $column->sortValue ? 'sorting' : '';
-				@endphp
-				<th class="{{$thClass}}">
-					@if( $column->sort )
-						<a href="{{$column->getSortUrl()}}">{{$column->title}}</a>
-					@else
-						{{$column->title}}
+			<tr>
+				@foreach($columns as $column)
+					@if(!$column->hidden)
+						@php
+							$thClass = $column->sortValue ? 'sorting' : '';
+						@endphp
+						<th class="{{$thClass}}">
+							@if( $column->sort )
+								<a href="{{$column->getSortUrl()}}">{{$column->title}}</a>
+							@else
+								{{$column->title}}
+							@endif
+						</th>
 					@endif
-				</th>
-			@endif
 
-			@php
-				unset($thClass)
-			@endphp
-		@endforeach
+					@php
+						unset($thClass)
+					@endphp
+				@endforeach
+			</tr>
+			<tr>
+				@foreach($columns as $column)
+					@if(!$column->hidden)
+						@php
+							$thClass = $column->filter ? 'filtering' : '';
+						@endphp
+						<th class="{{$thClass}}">
+							@if( $column->filter )
+								<input name="{{$column->filterParamName}}"
+									value=""
+									type="text"
+									class="form-control chgrid-filter">
+							@endif
+						</th>
+					@endif
+
+					@php
+						unset($thClass)
+					@endphp
+				@endforeach
+			</tr>
 		</thead>
 
 		<tbody>
@@ -82,15 +105,13 @@
 				{{ $model->links() }}
 			</td>
 			<td colspan="2">
-				<form action="" method="get" id="chgrid-perPageForm">
-					<select name="{{'chgrid-perPage'}}" class="form-control" id="chgrid-perPage">
-						@foreach($grid->perPage as $pP)
-							<option value="{{$pP}}"
-									@if( $request->input('chgrid-perPage', $grid->defaultPerPage) == $pP ) selected @endif
-							>{{$pP}}</option>
-						@endforeach
-					</select>
-				</form>
+				<select name="{{'chgrid-perPage'}}" class="form-control" id="chgrid-perPage">
+					@foreach($grid->perPage as $pP)
+						<option value="{{$pP}}"
+								@if( $request->input('chgrid-perPage', $grid->defaultPerPage) == $pP ) selected @endif
+						>{{$pP}}</option>
+					@endforeach
+				</select>
 			</td>
 		</tr>
 		</tfoot>
@@ -103,27 +124,58 @@
 	document.addEventListener('DOMContentLoaded', function() {
 
 		var perPageSelect = document.getElementById('chgrid-perPage');
-		var perPageForm = document.getElementById('chgrid-perPageForm');
+		var filterInputs = document.querySelectorAll('.filter-input');
+
+		var href = location.href;
 
 		perPageSelect.addEventListener('change', function(e) {
-			var href = location.href;
 
 			href = href.replace(/chgrid-page=\d+/, '');
+			var urlParam = 'chgrid-perPage=' + this.value;
 
 			if( href.match(/chgrid-perPage=\d+/) )
 			{
-				href = href.replace(/chgrid-perPage=\d+/, 'chgrid-perPage=' + this.value);
+				href = href.replace(/chgrid-perPage=\d+/, urlParam);
 			}
 			else
 			{
-				if( href.match(/\?.+$/) ) href = href + '&chgrid-perPage=' + this.value;
-				else if( href.match(/\?$/) ) href = href + 'chgrid-perPage=' + this.value;
-				else href = href + '?chgrid-perPage=' + this.value;
+				if( href.match(/\?.+$/) ) href = href + '&' + urlParam;
+				else if( href.match(/\?$/) ) href = href + urlParam;
+				else href = href + '?' + urlParam;
 			}
 			href = href.replace(/&&/, '&');
 			href = href.replace(/&$/, '');
 
 			location.href = href;
+		});
+
+		filterInputs.forEach(function( item )
+		{
+			item.addEventListener('keyup', function(e) {
+
+				var name = this.getAttribute('name');
+				var value = this.value;
+				urlParam = name + '=' + this.value;
+
+				console.log(value);
+
+				var regexp = new RegExp(name + '=[^&]');
+
+				if( href.match(regexp) )
+				{
+					href = href.replace(regexp, name + '=' + this.value);
+				}
+				else
+				{
+					if( href.match(/\?.+$/) ) href = href + '&' + urlParam;
+					else if( href.match(/\?$/) ) href = href + urlParam;
+					else href = href + '?' + urlParam;
+				}
+				href = href.replace(/&&/, '&');
+				href = href.replace(/&$/, '');
+
+				location.href = href;
+			});
 		});
 	}, false);
 </script>

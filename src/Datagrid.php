@@ -44,6 +44,9 @@ class Datagrid
 	/** @var  integer  $columnsCount */
 	public $columnsCount;
 
+	/** @var  integer  $columnsFiltersCount */
+	public $columnsFiltersCount;
+
 
 
 	public function __construct(
@@ -137,7 +140,11 @@ class Datagrid
 	{
 		foreach ($this->columns as $col)
 		{
-			if( !$col->hidden ) $this->columnsCount++;
+			if( !$col->hidden )
+			{
+				$this->columnsCount++;
+				if( !$col->filter ) $this->columnsFiltersCount++;
+			}
 		}
 	}
 

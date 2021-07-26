@@ -40,9 +40,9 @@ class Filter
 		foreach ($colmns as $col)
 		{
 			// Filter
-			if( $col->filter && $colFilter = $col->filterValue )
+			if( $col->filter )
 			{
-				($col->filter)($this->model, $colFilter);
+				($col->filter)($this->model, $col->filterValue);
 			}
 
 			// Sort
