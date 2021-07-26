@@ -153,6 +153,25 @@
 		});
 
 
+		sortTHeads.forEach(function(link) {
+
+			link.addEventListener('click', function(e) {
+				clearTimeout(filterTimeout);
+
+				var sort = this.getAttribute('data-sort');
+				var inputId = this.getAttribute('data-sort-input-id');
+				document.getElementById(inputId).value = sort;
+
+				filterTimeout = setTimeout(function() {
+					//currentUrl = removePageFromUrl(currentUrl);  // Sort does not need it
+					chGridForm.setAttribute('action', currentUrl);
+
+					formSubmit(chGridForm);
+				}, {{$grid->jsFilterTimeout}});
+			});
+		});
+
+
 		perPageSelect.addEventListener('change', function(e) {
 			clearTimeout(filterTimeout);
 
@@ -163,28 +182,6 @@
 				formSubmit(chGridForm);
 
 			}, {{$grid->jsFilterTimeout}});
-		});
-
-
-		sortTHeads.forEach(function(link) {
-
-			link.addEventListener('click', function(e) {
-				clearTimeout(filterTimeout);
-
-				var sort = this.getAttribute('data-sort');
-				var inputId = this.getAttribute('data-sort-input-id');
-				document.getElementById(inputId).value = sort;
-
-
-				filterTimeout = setTimeout(function() {
-					currentUrl = removePageFromUrl(currentUrl);
-					chGridForm.setAttribute('action', currentUrl);
-
-					formSubmit(chGridForm);
-				}, {{$grid->jsFilterTimeout}});
-			});
-
-
 		});
 
 
