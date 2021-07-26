@@ -110,7 +110,7 @@ class Datagrid
 
 	public function render()
 	{
-		$perPage = $this->request->input('perPage', $this->defaultPerPage);
+		$perPage = $this->request->input('chgrid-perPage', $this->defaultPerPage);
 
 		$filter = new Filter($this->request, $this, $this->model);
 		$model = $filter->getResult();

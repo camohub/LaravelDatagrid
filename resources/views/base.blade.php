@@ -82,12 +82,12 @@
 					{{ $model->links() }}
 				</td>
 				<td colspan="2">
-					<form action="" method="get">
+					<form action="" method="get" id="chgrid-perPageForm">
 						@csrf
-						<select name="{{'chgrid-perPage'}}" class="form-control">
+						<select name="{{'chgrid-perPage'}}" class="form-control" id="chgrid-perPage">
 							@foreach($grid->perPage as $pP)
-								<option value="{{$pP}}"
-										@if( $request->input('perPage', $grid->defaultPerPage) == $pP ) selected @endif
+								<option value="{{$pP}}" data-url="{{}}"
+										@if( $request->input('chgrid-perPage', $grid->defaultPerPage) == $pP ) selected @endif
 								>{{$pP}}</option>
 							@endforeach
 						</select>
@@ -97,3 +97,17 @@
 		</tfoot>
 	</table>
 </div>
+
+<script>
+// without jQuery (doesn't work in older IEs)
+// https://stackoverflow.com/questions/9899372/pure-javascript-equivalent-of-jquerys-ready-how-to-call-a-function-when-t
+document.addEventListener('DOMContentLoaded', function() {
+
+	var perPageSelect = document.getElementById('chgrid-perPage');
+	var perPageForm = document.getElementById('chgrid-perPageForm');
+
+	perPageSelect.addEventListener('change', function(e) {
+		perPageForm.submit();
+	});
+}, false);
+</script>
