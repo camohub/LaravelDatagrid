@@ -1,5 +1,5 @@
 
-<div class="table-responsive camohub-laravel-datagrid">
+<form id="chgrid-form" method="get" class="table-responsive camohub-laravel-datagrid">
 	<table class="{{ $grid->tableClass }}">
 
 		<thead>
@@ -116,7 +116,7 @@
 		</tr>
 		</tfoot>
 	</table>
-</div>
+</form>
 
 
 @if($grid->javascript)
