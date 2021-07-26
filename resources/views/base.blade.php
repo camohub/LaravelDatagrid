@@ -113,6 +113,10 @@
 						>{{$pP}}</option>
 					@endforeach
 				</select>
+
+				{{-- form.submit() does not trigger submit event. --}}
+				{{-- Need to click on button if is necessary to catch submit event. --}}
+				<input type="submit" id="chgrid-submit">
 			</td>
 		</tr>
 		</tfoot>
@@ -270,7 +274,10 @@
 			@endif
 		@endforeach
 
-		form.submit();
+		// form.submit() does not trigger submit event.
+		// Need to click on button if is necessary to catch submit event.
+		//form.submit();
+		document.getElementById('chgrid-submit').click();
 	}
 </script>
 @endif
