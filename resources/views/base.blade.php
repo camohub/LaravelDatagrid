@@ -5,16 +5,9 @@
 		<thead>
 			<tr>
 				@foreach($columns as $column)
-					@if(!$column->hidden)
-						@php
-							$thClass = $column->sortValue ? 'sorting' : '';
-						@endphp
-						<th class="{{$thClass}}">
-							@if( $column->sort )
-								<a href="{{$column->getSortUrl()}}">{{$column->title}}</a>
-							@else
-								{{$column->title}}
-							@endif
+					@if( !$column->hidden )
+						<th @if( $column->sort ) class="chgrid-sort {{$column->sortValue}}" data-sort="{{$column->getNextSortValue()}}" data-sort-input-id="{{$column->sortParamName}}" @endif>
+							{{$column->title}}
 						</th>
 					@endif
 
@@ -136,6 +129,7 @@
 		var chGridForm = document.getElementById('chgrid-form');
 		var perPageSelect = document.getElementById('chgrid-perPage');
 		var filterInputs = document.querySelectorAll('.chgrid-filter');
+		var sortTHeads = document.querySelectorAll('.chgrid-sort');
 		var currentUrl = location.href;
 		var filterTimeout = null;
 
@@ -169,6 +163,28 @@
 				formSubmit(chGridForm);
 
 			}, {{$grid->jsFilterTimeout}});
+		});
+
+
+		sortTHeads.forEach(function(link) {
+
+			link.addEventListener('click', function(e) {
+				clearTimeout(filterTimeout);
+
+				var sort = this.getAttribute('data-sort');
+				var inputId = this.getAttribute('data-sort-input-id');
+				document.getElementById(inputId).value = sort;
+
+
+				filterTimeout = setTimeout(function() {
+					currentUrl = removePageFromUrl(currentUrl);
+					chGridForm.setAttribute('action', currentUrl);
+
+					formSubmit(chGridForm);
+				}, {{$grid->jsFilterTimeout}});
+			});
+
+
 		});
 
 

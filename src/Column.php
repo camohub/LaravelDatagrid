@@ -178,7 +178,17 @@ class Column
 	}
 
 
-	public function getSortUrl()
+	public function getNextSortValue()
+	{
+		$currentValue = strtolower($this->sortValue);
+
+		if( !$currentValue ) return 'asc';
+		elseif ( $currentValue == 'asc' ) return 'desc';
+		elseif ( $currentValue == 'desc' ) return '';
+	}
+
+
+	/*public function getSortUrl()
 	{
 		$currentValue = strtolower($this->sortValue);
 		$currentUrl = $this->request->fullUrl();
@@ -202,6 +212,6 @@ class Column
 			$newUrl = trim($newUrl, '?/');
 			return $newUrl;
 		}
-	}
+	}*/
 
 }
