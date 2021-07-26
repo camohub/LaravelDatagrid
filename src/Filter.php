@@ -42,7 +42,7 @@ class Filter
 			// Filter
 			if( $col->filter )
 			{
-				($col->filter)($this->model, $col->filterValue);
+				$this->model = ($col->filter)($this->model, $col->filterValue);
 			}
 
 			// Sort
@@ -50,7 +50,7 @@ class Filter
 			{
 				if( is_callable($col->sort) )
 				{
-					($col->sort)($this->model, $col->sortValue);
+					$this->model = ($col->sort)($this->model, $col->sortValue);
 				}
 				else if( is_string($col->sortValue) )
 				{

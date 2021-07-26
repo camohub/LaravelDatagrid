@@ -101,10 +101,10 @@
 
 		<tfoot>
 		<tr>
-			<td colspan="{{$grid->columnsCount - 2}}">
+			<td colspan="{{$grid->columnsCount - 1}}">
 				{{ $model->links() }}
 			</td>
-			<td colspan="2">
+			<td>
 				<select name="{{'chgrid-perPage'}}" class="form-control" id="chgrid-perPage">
 					@foreach($grid->perPage as $pP)
 						<option value="{{$pP}}"
@@ -124,7 +124,7 @@
 	document.addEventListener('DOMContentLoaded', function() {
 
 		var perPageSelect = document.getElementById('chgrid-perPage');
-		var filterInputs = document.querySelectorAll('.filter-input');
+		var filterInputs = document.querySelectorAll('.chgrid-filter');
 
 		var href = location.href;
 
@@ -153,13 +153,11 @@
 		{
 			item.addEventListener('keyup', function(e) {
 
+				href = href.replace(/chgrid-page=\d+/, '');
 				var name = this.getAttribute('name');
-				var value = this.value;
 				urlParam = name + '=' + this.value;
 
-				console.log(value);
-
-				var regexp = new RegExp(name + '=[^&]');
+				var regexp = new RegExp(name + '=[^&]*');
 
 				if( href.match(regexp) )
 				{
