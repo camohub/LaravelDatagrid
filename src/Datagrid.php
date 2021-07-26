@@ -27,10 +27,10 @@ class Datagrid
 	public $model;
 
 	/** @var  integer  $defaultPerPage */
-	public $defaultPerPage;
+	public $defaultPerPage = 25;
 
 	/** @var  array  $perPage */
-	public $perPage;
+	public $perPage = [10, 25, 50, 100];
 
 	/** @var  integer  $onEachSide */
 	public $onEachSide;
@@ -40,6 +40,10 @@ class Datagrid
 
 	/** @var  array  $columns */
 	protected $columns;
+
+
+	/** @var  integer  $columnsCount */
+	protected $columnsCount;
 
 
 
@@ -91,6 +95,7 @@ class Datagrid
 	public function addColumn($fieldName, $title = '', $type = Column::TYPE_TEXT)
 	{
 		$this->columns[] = $column = new Column($this->request, $fieldName, $title, $type);
+		$this->columnsCount++;
 
 		return $column;
 	}
@@ -109,10 +114,11 @@ class Datagrid
 	{
 		$filter = new Filter($this->request, $this, $this->model);
 		$model = $filter->getResult();
-		$model = $this->model->paginate($this->defaultPerPage, ['*'], 'chgrid-page')
+		$model = $model->paginate($this->defaultPerPage, ['*'], 'chgrid-page')
 			->onEachSide($this->onEachSide)
 			->withQueryString();
 
+		$this->setColumnsCount();
 
 		return view('camohubLaravelDatagrid::base', [
 			'model' => $model,
@@ -120,6 +126,19 @@ class Datagrid
 			'grid' => $this,
 			'request' => $this->request,
 		]);
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	// PROTECTED ////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+
+	protected function setColumnsCount()
+	{
+		foreach ($this->columns as $col)
+		{
+			if( !$col->hidden ) $this->columnsCount++;
+		}
 	}
 
 }

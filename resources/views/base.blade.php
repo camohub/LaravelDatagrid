@@ -76,10 +76,21 @@
 		@endforeach
 		</tbody>
 		<tfoot>
+			<tr>
+				<td colspan="{{$grid->columnsCount - 2}}">
+					{{ $model->links() }}
+				</td>
+				<td>
+					<form action="" method="get">
+						@csrf
+						<select name="{{'chgrid-perPage'}}" class="form-control">
+							@foreach($grid->perPage as $pP)
+								<option value="{{$pP}}" @if($grid->request->input('perPage', $grid->defaultPerPage)) selected @endif>{{$pP}}</option>
+							@endforeach
+						</select>
+					</form>
+				</td>
+			</tr>
 		</tfoot>
 	</table>
-
-	<div class="mt-2">
-		{{ $model->links() }}
-	</div>
 </div>
