@@ -8,7 +8,7 @@ This is the datagrid for Laravel models.
 composer install camohub/laravel-datagrid
 ```
 
-##Description
+## Description
 
 Datagrid constructor required 
 
@@ -31,7 +31,7 @@ You can set all necessary GET parameters via $grid->addGetParam('name').
 
 
 
-##Example
+## Example
 
 Controller code could implement a method which returns datagrid instance.
 ```php
@@ -93,12 +93,12 @@ And the template could look like
 ```
 
 
-##Options
+## Options
 
 There are two groups of options. 
 Global datagrid options and column specific options.
 
-###Datagrid options
+### Datagrid options
 
 - setDefaultPerPage() - yes it really sets the default perPage items number.
 
@@ -115,7 +115,7 @@ Global datagrid options and column specific options.
 	setGetParams('paramName') will include all necessary GET params 
 	which should be included in all datagrid GET requests. 
 	
-###Column options
+### Column options
 
 - setRender() - accepts callback with two parameters - value and row.
 
