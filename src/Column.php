@@ -53,6 +53,9 @@ class Column
 	/** @var callable $filter */
 	public $filter = NULL;
 
+	/** @var string $jsFilterPatter */
+	public $jsFilterPatter = NULL;
+
 	/** @var callable $numberFormat */
 	public $numberFormat = NULL;
 
@@ -120,6 +123,12 @@ class Column
 		$this->filter = $callback;
 
 		return $this;
+	}
+
+
+	public function setJSFilterPattern(string $pattern)
+	{
+		$this->jsFilterPattern = $pattern;
 	}
 
 
