@@ -2,8 +2,6 @@
 <form id="chgrid-form" method="get" class="table-responsive camohub-laravel-datagrid">
 	<table class="{{ $grid->tableClass }}">
 
-		<input type="hidden" name="chgrid-page" value="{{$request->input('chgrid-page', NULL)}}">
-
 		<thead>
 			<tr>
 				@foreach($columns as $column)
@@ -123,6 +121,8 @@
 				{{-- form.submit() does not trigger submit event. --}}
 				{{-- Need to click on button if is necessary to catch submit event. --}}
 				<input type="submit" id="chgrid-submit" style="display: none;">
+				{{-- If it should be the last param in url needs to be here at the end of the form --}}
+				<input type="hidden" name="chgrid-page" id="chgrid-page" value="{{$request->input('chgrid-page', NULL)}}">
 			</td>
 		</tr>
 		</tfoot>
@@ -141,10 +141,11 @@
 		var filterInputs = document.querySelectorAll('#chgrid-form .chgrid-filter');
 		var sortTHeads = document.querySelectorAll('#chgrid-form .chgrid-sort');
 		var sortInputs = document.querySelectorAll('#chgrid-form .chgrid-sort-input');
+		var pageInput = document.getElementById('chgrid-page');
 		var currentUrl = location.href;
 		var filterTimeout = null;
 		var formChange = false;
-		var deletePageFromUrl = false;
+		var deletePageParam = false;
 
 		chGridForm.setAttribute('action', currentUrl);
 
@@ -154,23 +155,23 @@
 			input.addEventListener('input', function(e) {
 				clearTimeout(filterTimeout);
 
-				filterTimeout = setTimeout(function() {
-					if( this.getAttribute('data-jsFilterPatter') )
+				filterTimeout = setTimeout(function(input) {
+					if( input.getAttribute('data-jsFilterPatter') )
 					{
-						var regexp = new RegExp(this.getAttribute('data-jsFilterPatter'));
-						var value = this.value;
+						var regexp = new RegExp(input.getAttribute('data-jsFilterPatter'));
+						var value = input.value;
 
 						if( value && !value.match(regexp) )
 						{
-							this.classList.add('text-danger');
+							input.classList.add('text-danger');
 							return;
 						}
 
-						this.classList.remove('text-danger');
+						input.classList.remove('text-danger');
 					}
-					deletePageFromUrl = true;
-					formSubmit(chGridForm);
-				}, {{$grid->jsFilterTimeout}});
+					deletePageParam = true;
+					formSubmit();
+				}, {{$grid->jsFilterTimeout}}, this);
 
 			});
 		});
@@ -191,7 +192,7 @@
 
 		perPageSelect.addEventListener('change', function(e) {
 			clearTimeout(filterTimeout);
-			deletePageFromUrl = true;
+			deletePageParam = true;
 			formSubmit();
 		});
 
@@ -203,7 +204,7 @@
 		 */
 		function formSubmit()
 		{
-			if( deletePageFromUrl ) currentUrl = removePageFromUrl(currentUrl);
+			if( deletePageParam ) removePageParam();
 			chGridForm.setAttribute('action', currentUrl);
 
 			sortInputs.forEach(function( input ) {
@@ -221,9 +222,9 @@
 		}
 
 
-		function removePageFromUrl(url)
+		function removePageParam()
 		{
-			return url.replace(/chgrid-page=\d+/, '');
+			pageInput.setAttribute('disabled', true);
 		}
 
 
