@@ -149,7 +149,6 @@
 		var pageInput = document.getElementById('chgrid-page');
 		var currentUrl = location.href;
 		var filterTimeout = null;
-		var formChange = false;
 		var deletePageParam = false;
 
 		chGridForm.setAttribute('action', currentUrl);
