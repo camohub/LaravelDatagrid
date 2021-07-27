@@ -100,36 +100,36 @@ Global datagrid options and column specific options.
 
 ### Datagrid options
 
-- setDefaultPerPage() - yes it really sets the default perPage items number.
+- **setDefaultPerPage()** - yes it really sets the default perPage items number.
 
-- setPerPage() - expects array with possible dropdown options like [10, 25, 50, 100].
+- **setPerPage()** - expects array with possible dropdown options like [10, 25, 50, 100].
 
-- setOonEachSide() - it is the wrapper above the Laravel pagination onEachSide() option.
+- **setOonEachSide()** - it is the wrapper above the Laravel pagination onEachSide() option.
 
-- setTableClass() - default is 'table table-striped table-hover table-bordered';
+- **setTableClass()** - default is 'table table-striped table-hover table-bordered';
 
-- setJSFilterTimeout() - sets javascript timeout on input event. Default is 250ms.
+- **setJSFilterTimeout()** - sets javascript timeout on input event. Default is 250ms.
 
-- setGetParams - form submit removes all GET params from url which are not
+- **setGetParams()** - form submit removes all GET params from url which are not
 	the part of the form. Request will contain only form inputs as GET prameters. 
 	setGetParams('paramName') will include all necessary GET params 
 	which should be included in all datagrid GET requests. 
 	
 ### Column options
 
-- setRender() - accepts callback with two parameters - value and row.
+- **setRender()** - accepts callback with two parameters - value and row.
 
-- setSort() - accepts empty to simple sort according flied name 
+- **setSort()** - accepts empty to simple sort according flied name 
 	or callback which gets two params - queryBuilder and sort value.
 
-- setFilter() - accepts callback with two parameters - queryBuilder and filter value.
+- **setFilter()** - accepts callback with two parameters - queryBuilder and filter value.
 
-- setJSFilterPattern() - accepts js regexp patterns as string. If value does not match 
+- **setJSFilterPattern()** - accepts js regexp patterns as string. If value does not match 
 	the pattern validator will block the request and will add .text-danger class to input field.
 
-- setNoEscape() - custom render wont be escaped. Template use {!! !!} instead of {{}}.
+- **setNoEscape()** - custom render wont be escaped. Template use {!! !!} instead of {{}}.
 
-- setOutherClass() - accepts string or callback. Callback will be usefull if you 
+- **setOutherClass()** - accepts string or callback. Callback will be usefull if you 
 	need to make some conditional styles for the field. 
 	Callback will get two parameters - value and row.
 
