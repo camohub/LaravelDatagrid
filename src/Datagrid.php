@@ -53,6 +53,9 @@ class Datagrid
 	/** @var integer $jsFilterTimeout */
 	public $jsFilterTimeout = TRUE;
 
+	/** @var array $getParams */
+	public $getParams = NULL;
+
 
 
 	public function __construct(
@@ -103,7 +106,10 @@ class Datagrid
 	}
 
 
-
+	public function addGetParam(string $name)
+	{
+		$this->getParams[] = $name;
+	}
 
 
 

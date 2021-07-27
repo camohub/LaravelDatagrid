@@ -1,12 +1,22 @@
 
 <form id="chgrid-form" method="get" class="table-responsive camohub-laravel-datagrid">
+
+	{{-- In most cases getParams are not neccessary --}}
+	@foreach($grid->getParams as $getParam)
+		<input type="hidden" name="{{$getParam}}" value="{{$request->input($getParam, NULL)}}" class="chgrid-getPrams">
+	@endforeach
+
 	<table class="{{ $grid->tableClass }}">
 
 		<thead>
 			<tr>
 				@foreach($columns as $column)
 					@if( !$column->hidden )
-						<th @if( $column->sort ) class="chgrid-sort {{$column->sortValue}}" data-sort="{{$column->getNextSortValue()}}" data-sort-input-id="{{$column->sortParamName}}" @endif>
+						<th @if( $column->sort )
+								class="chgrid-sort {{$column->sortValue}}"
+								data-sort="{{$column->getNextSortValue()}}"
+								data-sort-input-id="{{$column->sortParamName}}"
+							@endif>
 							{{$column->title}}
 						</th>
 					@endif
