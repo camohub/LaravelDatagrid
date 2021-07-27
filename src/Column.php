@@ -129,6 +129,8 @@ class Column
 	public function setJSFilterPattern(string $pattern)
 	{
 		$this->jsFilterPattern = $pattern;
+
+		return $this;
 	}
 
 
