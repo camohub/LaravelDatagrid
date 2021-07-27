@@ -54,7 +54,7 @@ class Column
 	public $filter = NULL;
 
 	/** @var string $jsFilterPatter */
-	public $jsFilterPatter = NULL;
+	public $jsFilterPattern = NULL;
 
 	/** @var callable $numberFormat */
 	public $numberFormat = NULL;

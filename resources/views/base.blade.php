@@ -28,7 +28,7 @@
 									<input name="{{$column->filterParamName}}"
 										id="{{$column->filterParamName}}"
 										value="{{$column->filterValue}}"
-										data-jsFilterPatter="{{$column->jsFilterPatter}}"
+										data-jsFilterPattern="{{$column->jsFilterPattern}}"
 										type="text"
 										class="form-control chgrid-filter">
 								@endif
@@ -156,9 +156,9 @@
 				clearTimeout(filterTimeout);
 
 				filterTimeout = setTimeout(function(input) {
-					if( input.getAttribute('data-jsFilterPatter') )
+					if( input.getAttribute('data-jsFilterPattern') )
 					{
-						var regexp = new RegExp(input.getAttribute('data-jsFilterPatter'));
+						var regexp = new RegExp(input.getAttribute('data-jsFilterPattern'));
 						var value = input.value;
 
 						if( value && !value.match(regexp) )
