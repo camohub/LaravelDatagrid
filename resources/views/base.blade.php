@@ -227,61 +227,6 @@
 			pageInput.setAttribute('disabled', true);
 		}
 
-
-		/*var perPageSelect = document.getElementById('chgrid-perPage');
-		var filterInputs = document.querySelectorAll('.chgrid-filter');
-
-		var href = location.href;
-
-		perPageSelect.addEventListener('change', function(e) {
-
-			href = href.replace(/chgrid-page=\d+/, '');
-			var urlParam = 'chgrid-perPage=' + this.value;
-
-			if( href.match(/chgrid-perPage=\d+/) )
-			{
-				href = href.replace(/chgrid-perPage=\d+/, urlParam);
-			}
-			else
-			{
-				if( href.match(/\?.+$/) ) href = href + '&' + urlParam;
-				else if( href.match(/\?$/) ) href = href + urlParam;
-				else href = href + '?' + urlParam;
-			}
-			href = href.replace(/&&/, '&');
-			href = href.replace(/&$/, '');
-
-			location.href = href;
-		});
-
-		filterInputs.forEach(function( item )
-		{
-			item.addEventListener('keyup', function(e) {
-
-				href = href.replace(/chgrid-page=\d+/, '');
-				var name = this.getAttribute('name');
-				urlParam = name + '=' + this.value;
-
-				var regexp = new RegExp(name + '=[^&]*');  // including empty value
-
-				if( href.match(regexp) )
-				{
-					href = this.value
-						? href.replace(regexp, name + '=' + this.value)
-						: href.replace(regexp, '');
-				}
-				else
-				{
-					if( href.match(/\?.+$/) ) href = href + '&' + urlParam;
-					else if( href.match(/\?$/) ) href = href + urlParam;
-					else href = href + '?' + urlParam;
-				}
-				href = href.replace(/&&/, '&');
-				href = href.replace(/&$/, '');
-
-				location.href = href;
-			});
-		});*/
 	}, false);
 </script>
 @endif
