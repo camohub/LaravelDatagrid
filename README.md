@@ -117,17 +117,20 @@ Global datagrid options and column specific options.
 	
 ###Column options
 
+- setRender() - accepts callback with two parameters - value and row.
 
-	public $render = NULL;
+- setSort() - accepts empty to simple sort according flied name 
+	or callback which gets two params - queryBuilder and sort value.
 
-	public $sort = NULL;
+- setFilter() - accepts callback with two parameters - queryBuilder and filter value.
 
-	public $filter = NULL;
+- setJSFilterPattern() - accepts js regexp patterns as string. If value does not match 
+	the pattern validator will block the request and will add .text-danger class to input field.
 
-	public $jsFilterPattern = NULL;
+- setNoEscape() - custom render wont be escaped. Template use {!! !!} instead of {{}}.
 
-	public $hidden = NULL;
+- setOutherClass() - accepts string or callback. Callback will be usefull if you 
+	need to make some conditional styles for the field. 
+	Callback will get two parameters - value and row.
 
-	public $noEscape = NULL;
 
-	public $outherClass = NULL;

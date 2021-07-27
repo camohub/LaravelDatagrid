@@ -56,9 +56,6 @@ class Column
 	/** @var string $jsFilterPatter */
 	public $jsFilterPattern = NULL;
 
-	/** @var callable $numberFormat */
-	public $numberFormat = NULL;
-
 	/** @var boolean $hidden */
 	public $hidden = NULL;
 
@@ -129,17 +126,6 @@ class Column
 	public function setJSFilterPattern(string $pattern)
 	{
 		$this->jsFilterPattern = $pattern;
-
-		return $this;
-	}
-
-
-	/**
-	 * Nemeric values only
-	 */
-	public function setNumberFormat(int $decimals, string $point = '.', string $thousants = ' ')
-	{
-		$this->numberFormat = [$decimals, $point, $thousants];
 
 		return $this;
 	}

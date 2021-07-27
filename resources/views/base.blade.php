@@ -79,11 +79,6 @@
 
 									// Has to be here to have access to raw value.
 									$outherClass = $column->outherClass ? ($column->outherClass)($fieldValue, $item) : '';
-
-									if( $f = $column->numberFormat )
-									{
-										$fieldValue = number_format($column, $f[0], $f[1], $f[2]);
-									}
 								}
 								else
 								{
