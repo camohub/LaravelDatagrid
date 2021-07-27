@@ -104,7 +104,7 @@ Global datagrid options and column specific options.
 
 - **setPerPage()** - expects array with possible dropdown options like [10, 25, 50, 100].
 
-- **setOonEachSide()** - it is the wrapper above the Laravel pagination onEachSide() option.
+- **setOnEachSide()** - it is the wrapper above the Laravel pagination onEachSide() option.
 
 - **setTableClass()** - default is 'table table-striped table-hover table-bordered';
 
