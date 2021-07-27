@@ -3,14 +3,13 @@
 
 This is the datagrid for Laravel models.
 
-Installation
-------------
+##Installation
 ```
 composer install camohub/laravel-datagrid
 ```
 
-Description
------------
+##Description
+
 Datagrid constructor required 
 
 This package is based on form GET request. Whole table is a form. 
@@ -32,8 +31,8 @@ You can set all necessary GET parameters via $grid->addGetParam('name').
 
 
 
-Examples
-------------
+##Example
+
 Controller code could implement a method which returns datagrid instance.
 ```php
 public function getArticlesDatagrid()
@@ -94,9 +93,41 @@ And the template could look like
 ```
 
 
-Options
-------------
+##Options
 
-Datagrid requires non optional parameters. 
-1. Request object
-2. Model without pagination - datagrid will paginate it.
+There are two groups of options. 
+Global datagrid options and column specific options.
+
+###Datagrid options
+
+- setDefaultPerPage() - yes it really sets the default perPage items number.
+
+- setPerPage() - expects array with possible dropdown options like [10, 25, 50, 100].
+
+- setOonEachSide() - it is the wrapper above the Laravel pagination onEachSide() option.
+
+- setTableClass() - default is 'table table-striped table-hover table-bordered';
+
+- setJSFilterTimeout() - sets javascript timeout on input event. Default is 250ms.
+
+- setGetParams - form submit removes all GET params from url which are not
+	the part of the form. Request will contain only form inputs as GET prameters. 
+	setGetParams('paramName') will include all necessary GET params 
+	which should be included in all datagrid GET requests. 
+	
+###Column options
+
+
+	public $render = NULL;
+
+	public $sort = NULL;
+
+	public $filter = NULL;
+
+	public $jsFilterPattern = NULL;
+
+	public $hidden = NULL;
+
+	public $noEscape = NULL;
+
+	public $outherClass = NULL;

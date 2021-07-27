@@ -51,7 +51,7 @@ class Datagrid
 	public $javascript = TRUE;
 
 	/** @var integer $jsFilterTimeout */
-	public $jsFilterTimeout = TRUE;
+	public $jsFilterTimeout = 250;
 
 	/** @var array $getParams */
 	public $getParams = NULL;
@@ -94,10 +94,10 @@ class Datagrid
 	}
 
 
-	public function disableJavascript()
+	/*public function disableJavascript()
 	{
 		$this->javascript = FALSE;
-	}
+	}*/
 
 
 	public function setJSFilterTimeout(int $timeout)
