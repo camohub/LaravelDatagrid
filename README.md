@@ -13,6 +13,7 @@ composer install camohub/laravel-datagrid
 Datagrid constructor required 
 
 This package is based on form GET request. Whole table is a form. 
+You can simply catch submit event if you need.
 Empty inputs are disabled on submit by js and automatically removed from url.
 Datagrid contains this groups of inputs:
 
