@@ -3,7 +3,7 @@
 
 This is the datagrid for Laravel models.
 
-##Installation
+## Installation
 ```
 composer install camohub/laravel-datagrid
 ```
