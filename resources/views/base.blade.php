@@ -41,6 +41,7 @@
 										id="{{$column->filterParamName}}"
 										value="{{$column->filterValue}}"
 										data-jsFilterPattern="{{$column->jsFilterPattern}}"
+										data-submitOnEnter="{{$column->submitOnEnter}}"
 										type="text"
 										class="form-control chgrid-filter">
 								@endif
@@ -152,19 +153,22 @@
 		var currentUrl = location.href;
 		var filterTimeout = null;
 		var deletePageParam = false;
+		var gridSubmitOnEnter = {{$grid->submitOnEnter}}
 
 		chGridForm.setAttribute('action', currentUrl);
 
 
 		filterInputs.forEach( function( input ) {
+			var submitOnEnter = input.getAttribute('data-submitOnEnter');
+			var jsFilterPattern = input.getAttribute('data-jsFilterPattern');
 
 			input.addEventListener('input', function(e) {
 				clearTimeout(filterTimeout);
 
 				filterTimeout = setTimeout(function(input) {
-					if( input.getAttribute('data-jsFilterPattern') )
+					if( jsFilterPattern )
 					{
-						var regexp = new RegExp(input.getAttribute('data-jsFilterPattern'));
+						var regexp = new RegExp(jsFilterPattern);
 						var value = input.value;
 
 						if( value && !value.match(regexp) )
@@ -176,7 +180,7 @@
 						input.classList.remove('text-danger');
 					}
 					deletePageParam = true;
-					formSubmit();
+					if(!submitOnEnter && !gridSubmitOnEnter) formSubmit();
 				}, {{$grid->jsFilterTimeout}}, this);
 
 			});

@@ -53,6 +53,9 @@ class Datagrid
 	/** @var integer $jsFilterTimeout */
 	public $jsFilterTimeout = 250;
 
+	/** @var boolean $submitOnEnter */
+	public $submitOnEnter = FALSE;
+
 	/** @var array $getParams */
 	public $getParams = [];
 
@@ -103,6 +106,12 @@ class Datagrid
 	public function setJSFilterTimeout(int $timeout)
 	{
 		$this->jsFilterTimeout = $timeout;
+	}
+
+
+	public function setSubmitOnEnter()
+	{
+		$this->submitOnEnter = TRUE;
 	}
 
 
