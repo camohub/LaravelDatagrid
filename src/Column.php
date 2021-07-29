@@ -53,8 +53,14 @@ class Column
 	/** @var callable $filter */
 	public $filter = NULL;
 
+	/** @var callable $filterRender */
+	public $filterRender = NULL;
+
 	/** @var string $jsFilterPatter */
 	public $jsFilterPattern = NULL;
+
+	/** @var boolean $submitOnEnter */
+	public $submitOnEnter = FALSE;
 
 	/** @var boolean $hidden */
 	public $hidden = NULL;
@@ -123,9 +129,25 @@ class Column
 	}
 
 
+	public function setFilterRender(callable $callback)
+	{
+		$this->filterRender = $callback;
+
+		return $this;
+	}
+
+
 	public function setJSFilterPattern(string $pattern)
 	{
 		$this->jsFilterPattern = $pattern;
+
+		return $this;
+	}
+
+
+	public function setSubmitOnEnter()
+	{
+		$this->submitOnEnter = TRUE;
 
 		return $this;
 	}

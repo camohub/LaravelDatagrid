@@ -54,7 +54,7 @@ class Datagrid
 	public $jsFilterTimeout = 250;
 
 	/** @var array $getParams */
-	public $getParams = NULL;
+	public $getParams = [];
 
 
 

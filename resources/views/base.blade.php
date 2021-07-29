@@ -34,7 +34,9 @@
 								$thClass = $column->filter ? 'filtering' : '';
 							@endphp
 							<th class="{{$thClass}}">
-								@if( $column->filter )
+								@if( $column->filterRender )
+									{!! ($column->filterRender)($column) !!}
+								@elseif( $column->filter )
 									<input name="{{$column->filterParamName}}"
 										id="{{$column->filterParamName}}"
 										value="{{$column->filterValue}}"
