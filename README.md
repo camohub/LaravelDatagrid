@@ -110,6 +110,10 @@ Global datagrid options and column specific options.
 - **setTableClass()** - default is 'table table-striped table-hover table-bordered';
 
 - **setJSFilterTimeout()** - sets javascript timeout on input event. Default is 250ms.
+	
+- **setSubmitOnEnter()** - prevent submit on input event and will wait for hit enter key to submit.
+	This option is possible to set for the whole grid or for one column. 
+	Does not affect sorting, pagination and perPage select. They are still automatically submited.
 
 - **setGetParams()** - form submit removes all GET params from url which are not
 	the part of the form. Request will contain only form inputs as GET prameters. 
@@ -127,6 +131,10 @@ Global datagrid options and column specific options.
 
 - **setJSFilterPattern()** - accepts js regexp patterns as string. If value does not match 
 	the pattern validator will block the request and will add .text-danger class to input field.
+	
+- **setSubmitOnEnter()** - prevent submit on input event and will wait for hit enter key to submit.
+	This option is possible to set for the whole grid or for one column. 
+	Does not affect sorting, pagination and perPage select. They are still automatically submited.
 
 - **setNoEscape()** - custom render wont be escaped. Template use {!! !!} instead of {{}}.
 
