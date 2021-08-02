@@ -1,7 +1,8 @@
 # camohub/laravel-datagrid
 ## Laravel datagrid
 
-This is the datagrid for Laravel models.
+This is the datagrid for Laravel models. 
+Accepts Illuminate\Database\Eloquent\Builder and Illuminate\Database\Query\Builder as datasource.
 
 ## Installation
 ```
