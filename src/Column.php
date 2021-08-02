@@ -150,6 +150,14 @@ class Column
 	}
 
 
+	public function setFilterOnEnter()
+	{
+		$this->submitOnEnter = TRUE;
+
+		return $this;
+	}
+
+
 	public function setHidden()
 	{
 		$this->hidden = TRUE;
@@ -169,14 +177,8 @@ class Column
 	/**
 	 * Callback to add e.g. conditional class to the parent td element.
 	 */
-	public function setOutherClass($callback)
+	public function setOutherClass(callable $callback)
 	{
-		if( is_string($callback) )
-		{
-			$this->outherClass = function() use ($callback) {
-				return $callback;
-			};
-		}
 		$this->outherClass = $callback;
 
 		return $this;

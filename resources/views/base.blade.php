@@ -65,7 +65,7 @@
 		</thead>
 
 		<tbody>
-			@foreach($model as $item)
+			@foreach($model as $row)
 				<tr>
 					@foreach($columns as $column)
 						@if( !$column->hidden )
@@ -77,11 +77,11 @@
 									// Every iteration adds new object level.
 									foreach ($column->fieldNameExplode as $path)
 									{
-										$fieldValue = !isset($fieldValue) ? $item->{$path} : $fieldValue->{$path};
+										$fieldValue = !isset($fieldValue) ? $row->{$path} : $fieldValue->{$path};
 									}
 
 									// Has to be here to have access to raw value.
-									$outherClass = $column->outherClass ? ($column->outherClass)($fieldValue, $item) : '';
+									$outherClass = $column->outherClass ? ($column->outherClass)($fieldValue, $row) : '';
 								}
 								else
 								{
@@ -92,8 +92,8 @@
 							<td class="{{ $outherClass }}">
 
 								@if($column->render)
-									@if($column->noEscape){!! ($column->render)($fieldValue, $item) !!}
-									@else {{ ($column->render)($fieldValue, $item) }}
+									@if($column->noEscape){!! ($column->render)($fieldValue, $row) !!}
+									@else {{ ($column->render)($fieldValue, $row) }}
 									@endif
 								@else
 									@if($column->noEscape){!! $fieldValue !!}
