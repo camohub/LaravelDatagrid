@@ -3,7 +3,6 @@
 namespace Camohub\LaravelDatagrid;
 
 
-use Camohub\LaravelDatagrid\Exceptions\ColumnRenderCallbackException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
@@ -105,8 +104,6 @@ class Column
 
 	public function setRender(callable $callback)
 	{
-		if( !is_callable($callback) ) throw new ColumnRenderCallbackException("Column $this->fieldName render callback is not calleble");
-
 		$this->render = $callback;
 
 		return $this;
@@ -164,17 +161,6 @@ class Column
 	public function setNoEscape()
 	{
 		$this->noEscape = TRUE;
-
-		return $this;
-	}
-
-
-	public function setLink(string $routeName, string $routeParams)
-	{
-		$this->link = (object)[
-			'routeName' => $routeName,
-			'routePrams' => $routeParams,
-		];
 
 		return $this;
 	}

@@ -3,7 +3,9 @@
 namespace Camohub\LaravelDatagrid;
 
 
+use Camohub\LaravelDatagrid\Exceptions\DatagridConstructException;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as DBBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -62,8 +64,10 @@ class Datagrid
 
 
 	public function __construct(
-		Builder $model
+		$model
 	) {
+		if( !$model instanceof Builder && !$model instanceof DBBuilder) throw new DatagridConstructException();
+
 		$this->request = request();
 		$this->model = $model;
 		$this->sess_name = self::class . $this->slug;

@@ -3,13 +3,7 @@
 namespace Camohub\LaravelDatagrid\Exceptions;
 
 
-class ColumnRenderCallbackException extends \Exception
+class DatagridConstructException extends \Exception
 {
-
-}
-
-
-class NewException extends \Exception
-{
-
+	protected $message = 'Argument 1 passed to Camohub\LaravelDatagrid\Datagrid::__construct() must be an instance of Illuminate\Database\Eloquent\Builder or Illuminate\Database\Query\Builder';
 }
