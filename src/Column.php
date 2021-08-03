@@ -52,6 +52,9 @@ class Column
 	/** @var callable $filter */
 	public $filter = NULL;
 
+	/** @var string|NULL $filter */
+	public $filterValue = NULL;
+
 	/** @var callable $filterRender */
 	public $filterRender = NULL;
 
@@ -72,6 +75,9 @@ class Column
 
 	/** @var callable $outherClass */
 	public $outherClass = NULL;
+
+	/** @var string $outherClass */
+	public $outherTitleClass = NULL;
 
 
 	public function __construct(
@@ -180,6 +186,17 @@ class Column
 	public function setOutherClass(callable $callback)
 	{
 		$this->outherClass = $callback;
+
+		return $this;
+	}
+
+
+	/**
+	 * string
+	 */
+	public function setOutherTitleClass(string $class)
+	{
+		$this->outherTitleClass = $class;
 
 		return $this;
 	}

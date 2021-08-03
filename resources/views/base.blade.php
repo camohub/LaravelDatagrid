@@ -12,12 +12,15 @@
 			<tr>
 				@foreach($columns as $column)
 					@if( !$column->hidden )
+						@php
+							$outherTitleClass = $column->outherTitleClass ?: '';
+						@endphp
 						<th @if( $column->sort )
-								class="chgrid-sort {{$column->sortValue}}"
+								class="chgrid-sort {{$column->sortValue}} {{$outherTitleClass}} @endif"
 								data-sort="{{$column->getNextSortValue()}}"
 								data-sort-input-id="{{$column->sortParamName}}"
 							@endif>
-							{{$column->title}}
+							{{$column->title}} @if( $column->sort ) @include('arrows') @endif
 						</th>
 					@endif
 
@@ -80,13 +83,16 @@
 										$fieldValue = !isset($fieldValue) ? $row->{$path} : $fieldValue->{$path};
 									}
 
-									// Has to be here to have access to raw value.
-									$outherClass = $column->outherClass ? ($column->outherClass)($fieldValue, $row) : '';
+									// Has to be here to have access to raw value. OR NOT???
+									//$outherClass = $column->outherClass ? ($column->outherClass)($fieldValue, $row) : '';
 								}
 								else
 								{
 									$fieldValue = '';
 								}
+
+								// Has to be here to have access to raw value.
+								$outherClass = $column->outherClass ? ($column->outherClass)($fieldValue, $row) : '';
 							@endphp
 
 							<td class="{{ $outherClass }}">
@@ -191,6 +197,11 @@
 
 			link.addEventListener('click', function(e) {
 				clearTimeout(filterTimeout);
+
+				sortInputs.forEach(function(item)
+				{
+					item.value = '';
+				});
 
 				var sort = this.getAttribute('data-sort');
 				var inputId = this.getAttribute('data-sort-input-id');

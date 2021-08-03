@@ -128,7 +128,8 @@ Global datagrid options and column specific options.
 - **setSort()** - accepts empty to simple sort according flied name 
 	or callback which gets two params - queryBuilder and sort value.
 
-- **setFilter()** - accepts callback with two parameters - queryBuilder and filter value.
+- **setFilter()** - accepts callback with two parameters - queryBuilder and filter value. 
+	Filter callback is not called if filter value is NULL or empty string. Other values like 0 will call the filter.
 
 - **setJSFilterPattern()** - accepts js regexp patterns as string. If value does not match 
 	the pattern validator will block the request and will add .text-danger class to input field.
@@ -137,10 +138,14 @@ Global datagrid options and column specific options.
 	This option is possible to set for the whole grid or for one column. 
 	Does not affect sorting, pagination and perPage select. They are still automatically submited.
 
+- **setFilterRender()** - allows you to render filter input manually. 
+	Be sure rendered filter input has css class chgrid-filter.
+
 - **setNoEscape()** - custom render wont be escaped. Template use {!! !!} instead of {{}}.
 
-- **setOutherClass()** - accepts string or callback. Callback will be usefull if you 
+- **setOutherClass()** - accepts callback. Callback will be useful if you 
 	need to make some conditional styles for the field. 
 	Callback will get two parameters - value and row.
 
+- **setOutherTitleClass** - accepts string value. Will set up css class of TH element with title.
 

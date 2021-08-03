@@ -40,7 +40,7 @@ class Filter
 		foreach ($colmns as $col)
 		{
 			// Filter
-			if( $col->filter )
+			if( $col->filter && !is_null($col->filterValue) && $col->filterValue !== '' )
 			{
 				$this->model = ($col->filter)($this->model, $col->filterValue);
 			}
