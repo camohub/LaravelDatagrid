@@ -151,14 +151,16 @@
 <script>
 	// without jQuery (doesn't work in older IEs)
 	// https://stackoverflow.com/questions/9899372/pure-javascript-equivalent-of-jquerys-ready-how-to-call-a-function-when-t
-	document.addEventListener('DOMContentLoaded', function() {
+	// DOMContentLoaded is commented cause it blocks ajax requests and it seems it is not needed.
+	//document.addEventListener('DOMContentLoaded', function() {
 
 		var chGridForm = document.getElementById('chgrid-form');
-		var perPageSelect = document.getElementById('chgrid-perPage');
 		var filterInputs = document.querySelectorAll('#chgrid-form .chgrid-filter');
 		var sortTHeads = document.querySelectorAll('#chgrid-form .chgrid-sort');
 		var sortInputs = document.querySelectorAll('#chgrid-form .chgrid-sort-input');
 		var pageInput = document.getElementById('chgrid-page');
+		var paginationLinks = document.querySelectorAll('.pagination a');
+		var perPageSelect = document.getElementById('chgrid-perPage');
 		var currentUrl = location.href;
 		var filterTimeout = null;
 		var deletePageParam = false;
@@ -221,6 +223,18 @@
 		});
 
 
+		paginationLinks.forEach(function(item) {
+			item.addEventListener('click', function(e) {
+				e.preventDefault();
+				var href = e.target.getAttribute('href');
+				var page = href.match(/chgrid-page=(\d+)/)[1];
+				pageInput.value = page;
+				console.log(page);
+				formSubmit();
+			});
+		});
+
+
 		/**
 		 * This method disables all empty inputs
 		 * so its keys wont be in filter url.
@@ -239,6 +253,8 @@
 				if( !input.value ) input.setAttribute('disabled', true);
 			});
 
+			if( !pageInput.value || pageInput.value == '1' ) pageInput.setAttribute('disabled', true);
+
 			// form.submit() does not trigger submit event.
 			// Need to click on button if is necessary to catch submit event.
 			//form.submit();
@@ -251,6 +267,6 @@
 			pageInput.setAttribute('disabled', true);
 		}
 
-	}, false);
+	//}, false);
 </script>
 @endif
