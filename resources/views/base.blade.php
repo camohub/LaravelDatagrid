@@ -170,6 +170,8 @@
 
 		chGridForm.setAttribute('action', currentUrl);
 
+		setFocus();
+
 
 		filterInputs.forEach( function( input ) {
 			var submitOnEnter = input.getAttribute('data-submitOnEnter');
@@ -278,10 +280,17 @@
 		}
 
 
-		function getFocus()
+		function setFocus()
 		{
 			var selector = localStorage.getItem('chgrid-focus-name');
-			document.querySelector('input[name="'+selector+'"]').focus();
+			var input = document.querySelector('input[name="'+selector+'"]');
+			if( input )
+			{
+				input.focus();
+				// setSelectionRange() because focus() sets cursor at the beginning of the text.
+				var valueLen = input.value.length * 2;
+				input.setSelectionRange(valueLen, valueLen);
+			}
 		}
 
 	//}, false);
