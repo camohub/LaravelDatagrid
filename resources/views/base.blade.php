@@ -16,7 +16,7 @@
 							$outherTitleClass = $column->outherTitleClass ?: '';
 						@endphp
 						<th @if( $column->sort )
-								class="chgrid-sort {{$column->sortValue}} {{$outherTitleClass}} @endif"
+								class="chgrid-sort {{$column->sortValue}} {{$outherTitleClass}}"
 								data-sort="{{$column->getNextSortValue()}}"
 								data-sort-input-id="{{$column->sortParamName}}"
 							@endif>
