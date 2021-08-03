@@ -11,6 +11,10 @@
 @endsection
 
 <style>
+	.chgrid-sort {
+		cursor: pointer;
+	}
+
 	.bi-arrow-down, .bi-arrow-up, .bi-arrow-down-up {
 		position: relative;
 		top: -2px;
