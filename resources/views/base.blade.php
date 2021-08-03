@@ -22,6 +22,8 @@
 								class="chgrid-sort {{$column->sortValue}} {{$outherTitleClass}}"
 								data-sort="{{$column->getNextSortValue()}}"
 								data-sort-input-id="{{$column->sortParamName}}"
+							@else
+								class="{{$outherTitleClass}}"
 							@endif>
 							{{$column->title}} @if( $column->sort ) @yield('sort-arrows') @endif
 						</th>
@@ -191,6 +193,9 @@
 						input.classList.remove('text-danger');
 					}
 					deletePageParam = true;
+
+					saveFocusSelector(input);
+
 					if(!submitOnEnter && !gridSubmitOnEnter) formSubmit();
 				}, {{$grid->jsFilterTimeout}}, this);
 
@@ -229,7 +234,6 @@
 				var href = e.target.getAttribute('href');
 				var page = href.match(/chgrid-page=(\d+)/)[1];
 				pageInput.value = page;
-				console.log(page);
 				formSubmit();
 			});
 		});
@@ -265,6 +269,19 @@
 		function removePageParam()
 		{
 			pageInput.setAttribute('disabled', true);
+		}
+
+
+		function saveFocusSelector(input)
+		{
+			localStorage.setItem('chgrid-focus-name', input.getAttribute('name'));
+		}
+
+
+		function getFocus()
+		{
+			var selector = localStorage.getItem('chgrid-focus-name');
+			document.querySelector('input[name="'+selector+'"]').focus();
 		}
 
 	//}, false);
