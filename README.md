@@ -102,6 +102,8 @@ Global datagrid options and column specific options.
 
 ### Datagrid options
 
+- **setDefaultSort()** - sort callback used when not other sort filter is in use.
+
 - **setDefaultPerPage()** - yes it really sets the default perPage items number.
 
 - **setPerPage()** - expects array with possible dropdown options like [10, 25, 50, 100].

@@ -52,8 +52,8 @@ class Datagrid
 	/** @var integer $columnsFiltersCount */
 	public $columnsFiltersCount;
 
-	/** @var boolean $javascript */
-	public $javascript = TRUE;
+	/** @var callable $defaultSort */
+	public $defaultSort = NULL;
 
 	/** @var integer $jsFilterTimeout */
 	public $jsFilterTimeout = 250;
@@ -98,16 +98,16 @@ class Datagrid
 	}
 
 
+	public function setDefaultSort(callable $defaultSort)
+	{
+		$this->defaultSort = $defaultSort;
+	}
+
+
 	public function setTableClass(string $class)
 	{
 		$this->tableClass = $class;
 	}
-
-
-	/*public function disableJavascript()
-	{
-		$this->javascript = FALSE;
-	}*/
 
 
 	public function setJSFilterTimeout(int $timeout)

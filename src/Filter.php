@@ -46,17 +46,22 @@ class Filter
 			}
 
 			// Sort
+			$defaultSort = TRUE;
 			if( $col->sort && $col->sortValue )
 			{
 				if( is_callable($col->sort) )
 				{
 					$this->model = ($col->sort)($this->model, $col->sortValue);
+					$defaultSort = FALSE;
 				}
 				else if( is_string($col->sortValue) )
 				{
 					$this->model->orderBy($col->fieldName, $col->sortValue);
+					$defaultSort = FALSE;
 				}
 			}
+
+			if( $defaultSort ) $this->model = ($this->grid->defaultSort)($this->model);
 		}
 
 		return $this->model;
