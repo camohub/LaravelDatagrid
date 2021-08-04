@@ -61,9 +61,12 @@ public function getArticlesDatagrid()
         ->setSort();
 
     $grid->addColumn('visible', 'Visible')
-        // Outher is td element
-        ->setOutherClass(function($value, $item) {
-            return $value ? 'bg-success' : 'bg-danger';
+        ->setOutherClass(function($value, $row) {
+            return $value ? 'bg-primary text-center' : 'bg-danger text-center';
+        })
+        ->setSelectFilter([0 => 'hidden', 1 => 'active'], 'all')
+        ->setFilter(function ($model, $value) {
+            return $model->where('visible', $value);
         });
 
     // HasOne relation
@@ -132,6 +135,8 @@ Global datagrid options and column specific options.
 
 - **setFilter()** - accepts callback with two parameters - queryBuilder and filter value. 
 	Filter callback is not called if filter value is NULL or empty string. Other values like 0 will call the filter.
+
+- **setFilterSelect()** - expects associative array and options prompt parameter. This function renders select element in the filter field.
 
 - **setJSFilterPattern()** - accepts js regexp patterns as string. If value does not match 
 	the pattern validator will block the request and will add .text-danger class to input field.

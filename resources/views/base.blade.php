@@ -18,6 +18,9 @@
 						@php
 							$outherTitleClass = $column->outherTitleClass ?: '';
 						@endphp
+						{{-- SORT --}}
+						{{-- SORT --}}
+						{{-- SORT --}}
 						<th @if( $column->sort )
 								class="chgrid-sort {{$column->sortValue}} {{$outherTitleClass}}"
 								data-sort="{{$column->getNextSortValue()}}"
@@ -34,6 +37,9 @@
 					@endphp
 				@endforeach
 			</tr>
+			{{-- FILTERS --}}
+			{{-- FILTERS --}}
+			{{-- FILTERS --}}
 			@if($grid->columnsFiltersCount)
 				<tr>
 					@foreach($columns as $column)
@@ -44,6 +50,18 @@
 							<th class="{{$thClass}}">
 								@if( $column->filterRender )
 									{!! ($column->filterRender)($column) !!}
+								@elseif( $column->selectFilter)
+									<select name="{{$column->filterParamName}}"
+											id="{{$column->filterParamName}}"
+											data-submitOnEnter="{{$column->submitOnEnter}}"
+											class="form-control chgrid-filter">
+										@if($column->selectFilterPrompt)
+											<option value="">{{$column->selectFilterPrompt}}</option>
+										@endif
+										@foreach( $column->selectFilter as $key => $value )
+											<option value="{{$key}}" @if( $column->filterValue === $key ) selected="selected" @endif>{{$value}}</option>
+										@endforeach
+									</select>
 								@elseif( $column->filter )
 									<input name="{{$column->filterParamName}}"
 										id="{{$column->filterParamName}}"
@@ -53,7 +71,9 @@
 										type="text"
 										class="form-control chgrid-filter">
 								@endif
-
+								{{-- SORT HIDDEN --}}
+								{{-- SORT HIDDEN --}}
+								{{-- SORT HIDDEN --}}
 								@if( $column->sort )
 									<input name="{{$column->sortParamName}}"
 										id="{{$column->sortParamName}}"
@@ -71,7 +91,9 @@
 				</tr>
 			@endif
 		</thead>
-
+		{{-- TBODY --}}
+		{{-- TBODY --}}
+		{{-- TBODY --}}
 		<tbody>
 			@foreach($model as $row)
 				<tr>
@@ -122,7 +144,9 @@
 				</tr>
 			@endforeach
 		</tbody>
-
+		{{-- TFOOT --}}
+		{{-- TFOOT --}}
+		{{-- TFOOT --}}
 		<tfoot>
 		<tr>
 			<td colspan="{{$grid->columnsCount - 1}}">

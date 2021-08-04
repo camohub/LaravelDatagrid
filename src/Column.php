@@ -67,6 +67,12 @@ class Column
 	/** @var boolean $submitOnEnter */
 	public $submitOnEnter = FALSE;
 
+	/** @var array $selectFilter  */
+	public $selectFilter = NULL;
+
+	/** @var string $selectFilterPrompt  */
+	public $selectFilterPrompt = NULL;
+
 	/** @var boolean $hidden */
 	public $hidden = NULL;
 
@@ -166,6 +172,13 @@ class Column
 		$this->submitOnEnter = TRUE;
 
 		return $this;
+	}
+
+
+	public function setSelectFilter(array $options, $prompt = NULL)
+	{
+		$this->selectFilter = $options;
+		$this->selectFilterPrompt = $prompt;
 	}
 
 
