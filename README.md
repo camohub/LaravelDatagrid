@@ -2,7 +2,6 @@
 ## Laravel datagrid
 
 This is the datagrid for Laravel models. 
-Accepts Illuminate\Database\Eloquent\Builder and Illuminate\Database\Query\Builder as datasource.
 
 ## Installation
 ```
@@ -11,7 +10,8 @@ composer install camohub/laravel-datagrid
 
 ## Description
 
-Datagrid constructor required 
+Datagrid constructor accepts instance of Illuminate\Database\Eloquent\Builder 
+or Illuminate\Database\Query\Builder as datasource.
 
 This package is based on form GET request. Whole table is a form. 
 You can simply catch submit event if you need.
@@ -102,7 +102,7 @@ Global datagrid options and column specific options.
 
 ### Datagrid options
 
-- **setDefaultSort()** - sort callback used when not other sort filter is in use.
+- **setDefaultSort()** - sort callback used when no other sort filter is in use.
 
 - **setDefaultPerPage()** - yes it really sets the default perPage items number.
 
