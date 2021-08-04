@@ -59,7 +59,7 @@
 											<option value="">{{$column->selectFilterPrompt}}</option>
 										@endif
 										@foreach( $column->selectFilter as $key => $value )
-											<option value="{{$key}}" @if( $column->filterValue === $key ) selected="selected" @endif>{{$value}}</option>
+											<option value="{{$key}}" @if( $column->filterValue === (string)$key ) selected="selected" @endif>{{$value}}</option>
 										@endforeach
 									</select>
 								@elseif( $column->filter )
