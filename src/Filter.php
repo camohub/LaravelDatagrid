@@ -36,6 +36,7 @@ class Filter
 	public function getResult()
 	{
 		$colmns = $this->grid->getColumns();
+		$defaultSort = TRUE;
 
 		foreach ($colmns as $col)
 		{
@@ -46,7 +47,6 @@ class Filter
 			}
 
 			// Sort
-			$defaultSort = TRUE;
 			if( $col->sort && $col->sortValue )
 			{
 				if( is_callable($col->sort) )
@@ -60,9 +60,9 @@ class Filter
 					$defaultSort = FALSE;
 				}
 			}
-
-			if( $defaultSort ) $this->model = ($this->grid->defaultSort)($this->model);
 		}
+
+		if( $defaultSort ) $this->model = ($this->grid->defaultSort)($this->model);
 
 		return $this->model;
 	}
