@@ -179,6 +179,8 @@ class Column
 	{
 		$this->selectFilter = $options;
 		$this->selectFilterPrompt = $prompt;
+
+		return $this;
 	}
 
 
