@@ -149,7 +149,6 @@
 </form>
 
 
-@if($grid->javascript)
 <script>
 	// without jQuery (doesn't work in older IEs)
 	// https://stackoverflow.com/questions/9899372/pure-javascript-equivalent-of-jquerys-ready-how-to-call-a-function-when-t
@@ -295,4 +294,3 @@
 
 	//}, false);
 </script>
-@endif

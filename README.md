@@ -18,14 +18,14 @@ You can simply catch submit event if you need.
 Empty inputs are disabled on submit by js and automatically removed from url.
 Datagrid contains this groups of inputs:
 
-- sort inputs - every sortalbe field has its own hidden input. 
+- **sort inputs** - every sortalbe field has its own hidden input. 
 	After click on the sortable column js sets the hidden input value. 
 	If value is empty hidden input is disabled.
-- filter inputs - filter inputs triggers form submit on input event. 
+- **filter inputs** - filter inputs triggers form submit on input event. 
 	There is also timeout as throttling to wait for another input events.
 	This timeout can be set in php grid definition globally by setJSFilterTimeout().
-- perPage select - onchange event triggers form submit immediately.
-- page - paginator page param is also as hidden input.
+- **perPage select** - onchange event triggers form submit immediately.
+- **page** - paginator page param is also as hidden input.
 
 This form submit implementation has one little disadvantage. 
 It removes all other GET parameters from url. But it is easy to fix it. 
