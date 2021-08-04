@@ -43,6 +43,9 @@ class Datagrid
 	/** @var array $columns */
 	protected $columns;
 
+	/** @var array $columnsNames */
+	protected $columnsNames = [];  // If column is used more than one times in grid its name needs to have suffix. This is the collection of names in use.
+
 	/** @var integer $columnsCount */
 	public $columnsCount;
 
@@ -130,7 +133,12 @@ class Datagrid
 
 	public function addColumn($fieldName, $title = '', $type = Column::TYPE_TEXT)
 	{
-		$this->columns[] = $column = new Column($this->request, $fieldName, $title, $type);
+		$this->columnsNames[] = $fieldName;
+		$fieldNameCount = array_count_values($this->columnsNames)[$fieldName];
+		// If col with the same fieldName already has been added then new one needs suffix.
+		$suffix = $fieldNameCount > 1 ? $fieldNameCount : NULL;
+
+		$this->columns[] = $column = new Column($this->request, $fieldName, $title, $type, $suffix);
 
 		return $column;
 	}

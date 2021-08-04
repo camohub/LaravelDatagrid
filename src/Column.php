@@ -22,6 +22,9 @@ class Column
 	/** @var Request|null $request */
 	public $request = NULL;
 
+	/** @var string $suffix */
+	public $suffix = NULL;
+
 	/** @var string $fieldName */
 	public $fieldName = NULL;
 
@@ -84,15 +87,17 @@ class Column
 		Request $request,
 		$fieldName,  // accepts article.user.roles. Other structures need custom render callback.
 		$title = '',
-		$type = self::TYPE_TEXT
+		$type = self::TYPE_TEXT,
+		$suffix = NULL
 	) {
+		$this->suffix = $suffix;
 		$this->request = $request;
 		$this->fieldName = $fieldName;
 		$this->fieldNameExplode = explode('.', $fieldName);
 		$this->title = $title ?: ucfirst($fieldName);
 		$this->type = $type;
-		$this->filterParamName = 'chgrid-filter-' . Str::slug($fieldName);
-		$this->sortParamName = 'chgrid-sort-' . Str::slug($fieldName);
+		$this->filterParamName = 'chgrid-filter-' . Str::slug($fieldName) . $suffix;
+		$this->sortParamName = 'chgrid-sort-' . Str::slug($fieldName) . $suffix;
 		$this->filterValue = $request->input($this->filterParamName, NULL);
 		$this->sortValue = $request->input($this->sortParamName, NULL);
 
