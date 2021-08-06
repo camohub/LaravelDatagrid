@@ -43,7 +43,8 @@ class Filter
 			// Filter
 			if( $col->filter && !is_null($col->filterValue) && $col->filterValue !== '' )
 			{
-				$this->model = ($col->filter)($this->model, $col->filterValue);
+				$this->model = call_user_func($col->filter, $this->model, $col->filterValue);
+				//$this->model = ($col->filter)($this->model, $col->filterValue);
 			}
 
 			// Sort
@@ -51,7 +52,8 @@ class Filter
 			{
 				if( is_callable($col->sort) )
 				{
-					$this->model = ($col->sort)($this->model, $col->sortValue);
+					$this->model = call_user_func($col->sort, $this->model, $col->sortValue);
+					//$this->model = ($col->sort)($this->model, $col->sortValue);
 					$callDefaultSort = FALSE;
 				}
 				else if( is_string($col->sortValue) )
