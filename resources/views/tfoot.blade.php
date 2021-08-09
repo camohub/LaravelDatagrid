@@ -4,7 +4,7 @@
 		<td colspan="{{$grid->columnsCount - 2}}">
 			{{ $model->links() }}
 		</td>
-		<td>
+		<td class="text-right">
 			<span class="btn btn-danger" id="chgrid-reset">Reset</span>
 		</td>
 		<td>
