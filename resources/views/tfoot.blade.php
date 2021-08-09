@@ -1,8 +1,11 @@
 
 <tfoot>
 	<tr>
-		<td colspan="{{$grid->columnsCount - 1}}">
+		<td colspan="{{$grid->columnsCount - 2}}">
 			{{ $model->links() }}
+		</td>
+		<td>
+			<span class="btn btn-danger" id="chgrid-reset">Reset</span>
 		</td>
 		<td>
 			<select name="{{'chgrid-perPage'}}" class="form-control" id="chgrid-perPage">

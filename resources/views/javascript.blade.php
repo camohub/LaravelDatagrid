@@ -12,6 +12,7 @@
 		var pageInput = document.getElementById('chgrid-page');
 		var paginationLinks = document.querySelectorAll('.pagination a');
 		var perPageSelect = document.getElementById('chgrid-perPage');
+		var resetBtn = document.getElementById('chgrid-reset');
 		var currentUrl = location.href;
 		var filterTimeout = null;
 		var deletePageParam = false;
@@ -90,6 +91,12 @@
 		});
 
 
+		resetBtn.addEventListener('click', function(e)
+		{
+			reset();
+		});
+
+
 		/**
 		 * This method disables all empty inputs
 		 * so its keys wont be in filter url.
@@ -140,6 +147,15 @@
 				var valueLen = input.value.length * 2;
 				input.setSelectionRange(valueLen, valueLen);
 			}
+		}
+
+
+		function reset()
+		{
+			filterInputs.forEach(function(input) { input.value = ''; });
+			sortInputs.forEach(function(input) { input.value = ''; });
+			removePageParam();
+			formSubmit();
 		}
 
 	//}, false);
