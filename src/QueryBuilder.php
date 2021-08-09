@@ -4,13 +4,14 @@ namespace Camohub\LaravelDatagrid;
 
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as DBBuilder;
 use Illuminate\Support\Facades\Log;
 
 
 class QueryBuilder
 {
 
-	/** @var Builder $request */
+	/** @var Builder|DBBuilder $request */
 	protected $model;
 
 	/** @var array $methodsInUse */
@@ -34,15 +35,12 @@ class QueryBuilder
 			return $this;
 		}
 
-		$key = serialize($params);
 		$this->methodsInUse[$method][] = $key;
 
 		$return = $this->model->$method( ...$params );
 
-		is_object($return) ? Log::debug(get_class($return)) : Log::debug($return);
-
 		//  If $return is not instance of Eloquent\QueryBuilder return $result otherwise return $this.
-		return $return instanceof Builder ? $this : $return;
+		return $return instanceof Builder || $return instanceof DBBuilder ? $this : $return;
 	}
 
 
@@ -51,7 +49,7 @@ class QueryBuilder
 		$return = $this->model->$method( ...$params );
 
 		//  If $return is not instance of Eloquent\QueryBuilder return $result otherwise return $this.
-		return $return instanceof Builder ? $this : $return;
+		return $return instanceof Builder || $return instanceof DBBuilder ? $this : $return;
 	}
 
 
