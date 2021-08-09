@@ -72,7 +72,7 @@ class Datagrid
 		if( !$model instanceof Builder && !$model instanceof DBBuilder) throw new DatagridConstructException();
 
 		$this->request = request();
-		$this->model = $model;
+		$this->model = new QueryBuilder($model);
 		$this->sess_name = self::class . $this->slug;
 
 		return $this;
