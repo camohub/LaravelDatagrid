@@ -35,7 +35,7 @@ class Datagrid
 	public $perPage = [10, 25, 50, 100];
 
 	/** @var integer $onEachSide */
-	public $onEachSide;
+	public $onEachSide = 3;
 
 	/** @var string $tableClass  */
 	public $tableClass = 'table table-striped table-hover table-bordered';
